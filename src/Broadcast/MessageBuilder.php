@@ -41,6 +41,13 @@ class MessageBuilder
     protected $message;
 
     /**
+     * Safe message.
+     *
+     * @var mixed
+     */
+    protected $safe = 0;
+
+    /**
      * Broadcast instance.
      *
      * @var \EntWeChat\Broadcast\Broadcast
@@ -142,12 +149,14 @@ class MessageBuilder
     public function toUser($userIds)
     {
         if (1 < func_num_args()) {
-            $userIds = Arr::where(func_get_args(), function ($key, $value) {
-                return is_string($value);
-            });
+            $userIds = func_get_args();
         }
 
-        $this->to['touser'] = implode('|', (array)$userIds);
+        $userIds = Arr::where((array)$userIds, function ($key, $value) {
+            return is_string($value) || is_numeric($value);
+        });
+
+        $this->to['touser'] = implode('|', $userIds);
 
         return $this;
     }
@@ -162,12 +171,14 @@ class MessageBuilder
     public function toParty($partyIds)
     {
         if (1 < func_num_args()) {
-            $partyIds = Arr::where(func_get_args(), function ($key, $value) {
-                return is_numeric($value);
-            });
+            $partyIds = func_get_args();
         }
 
-        $this->to['toparty'] = implode('|', (array)$partyIds);
+        $partyIds = Arr::where((array)$partyIds, function ($key, $value) {
+            return is_numeric($value);
+        });
+
+        $this->to['toparty'] = implode('|', $partyIds);
 
         return $this;
     }
@@ -182,12 +193,26 @@ class MessageBuilder
     public function toTag($tagIds)
     {
         if (1 < func_num_args()) {
-            $tagIds = Arr::where(func_get_args(), function ($key, $value) {
-                return is_numeric($value);
-            });
+            $tagIds = func_get_args();
         }
 
-        $this->to['totag'] = implode('|', (array)$tagIds);
+        $tagIds = Arr::where((array)$tagIds, function ($key, $value) {
+            return is_numeric($value);
+        });
+
+        $this->to['totag'] = implode('|', $tagIds);
+
+        return $this;
+    }
+
+    /**
+     * Use safe message.
+     *
+     * @return mixed
+     */
+    public function safe()
+    {
+        $this->safe = 1;
 
         return $this;
     }
@@ -212,7 +237,7 @@ class MessageBuilder
         } else {
             $content = $transformer->transform($this->message);
 
-            $message = array_merge($this->to, ['agentid' => $this->agentId], $content);
+            $message = array_merge($this->to, ['agentid' => $this->agentId], ['safe' => $this->safe], $content);
         }
 
         return $this->broadcast->send($message);
