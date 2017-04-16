@@ -1,0 +1,32 @@
+{
+  "name": "entwechat/service",
+  "description": "authentication module for EntWeChat SDK.",
+  "keywords": [
+    "wechat",
+    "weixin",
+    "SDK",
+    "service",
+    "entwechat"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "freyo",
+      "email": "freyhsiao@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "EntWeChat\\Service\\": "."
+    }
+  },
+  "minimum-stability": "dev",
+  "require-dev": {
+    "phpunit/phpunit": "4.8.*",
+    "mockery/mockery": "^1.0@dev"
+  },
+  "require": {
+    "entwechat/core": "dev-master",
+    "symfony/http-foundation": "~2.6|~2.7|~2.8|~3.0"
+  }
+}
