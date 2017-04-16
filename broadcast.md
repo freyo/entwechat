@@ -30,7 +30,7 @@ $broadcast = $app->broadcast;
 ### 群发消息给所有成员
 
 ```php
-$broadcast->by($agentId)->message($message)->toAll()->send();
+$broadcast->message($message)->by($agentId)->toAll()->send();
 ```
 
 ### 群发消息给指定成员
@@ -38,10 +38,10 @@ $broadcast->by($agentId)->message($message)->toAll()->send();
 当群发对象为全员时忽略本参数；非`string`或`numeric`类型的用户ID将被忽略
 
 ```php
-$broadcast->by($agentId)->message($message)->toUser($userId1, $userId2)->send();
+$broadcast->message($message)->by($agentId)->toUser($userId1, $userId2)->send();
 
 //或传入数组
-$broadcast->by($agentId)->message($message)->toUser([$userId1, $userId2])->send();
+$broadcast->message($message)->by($agentId)->toUser([$userId1, $userId2])->send();
 ```
 
 ### 群发消息给指定部门下成员
@@ -49,10 +49,10 @@ $broadcast->by($agentId)->message($message)->toUser([$userId1, $userId2])->send(
 当群发对象为全员时忽略本参数；非`numeric`类型的部门ID将被忽略
 
 ```php
-$broadcast->by($agentId)->message($message)->toParty($partyId1, $partyId2)->send();
+$broadcast->message($message)->by($agentId)->toParty($partyId1, $partyId2)->send();
 
 //或传入数组
-$broadcast->by($agentId)->message($message)->toParty([$partyId1, $partyId2])->send();
+$broadcast->message($message)->by($agentId)->toParty([$partyId1, $partyId2])->send();
 ```
 
 ### 群发消息给指定标签下成员
@@ -60,10 +60,10 @@ $broadcast->by($agentId)->message($message)->toParty([$partyId1, $partyId2])->se
 当群发对象为全员时忽略本参数；非`numeric`类型的标签ID将被忽略
 
 ```php
-$broadcast->by($agentId)->message($message)->toTag($tagId1, $tagId2)->send();
+$broadcast->message($message)->by($agentId)->toTag($tagId1, $tagId2)->send();
 
 //或传入数组
-$broadcast->by($agentId)->message($message)->toTag([$tagId1, $tagId2])->send();
+$broadcast->message($message)->by($agentId)->toTag([$tagId1, $tagId2])->send();
 ```
 
 ### 多条件群发
@@ -71,20 +71,22 @@ $broadcast->by($agentId)->message($message)->toTag([$tagId1, $tagId2])->send();
 可以同时群发给指定成员、指定标签下成员、指定部门下成员，非交集
 
 ```php
-$broadcast->by($agentId)->message($message)
-                        ->toUser($userId1, $userId2)
-                        ->toParty($userId1, $userId2)
-                        ->toTag($tagId1, $tagId2)
-                        ->send();
+$broadcast->message($message)
+          ->by($agentId)
+          ->toUser($userId1, $userId2)
+          ->toParty($userId1, $userId2)
+          ->toTag($tagId1, $tagId2)
+          ->send();
 ```
 
 ### 群发保密消息
 
 ```php
-$broadcast->by($agentId)->message($message)
-                        ->safe()
-                        ->toUser($userId1, $userId2)
-                        ->send();
+$broadcast->message($message)
+          ->safe()
+          ->by($agentId)
+          ->toUser($userId1, $userId2)
+          ->send();
 ```
 
 ### 注意事项
@@ -94,10 +96,11 @@ $broadcast->by($agentId)->message($message)
 如下例，最终只会发消息给`UserId`为`$userId2`的成员
 
 ```php
-$broadcast->by($agentId)->message($message)
-                        ->toUser($userId1)
-                        ->toUser($userId2)
-                        ->send();
+$broadcast->message($message)
+          ->by($agentId)
+          ->toUser($userId1)
+          ->toUser($userId2)
+          ->send();
 ```
 
 有关群发信息的更多细节请参考微信官方文档：http://qydev.weixin.qq.com/wiki/
