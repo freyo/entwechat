@@ -27,7 +27,6 @@ class MpNews extends AbstractMessage
         'content',
         'digest',
         'show_cover_pic',
-        'safe',
     ];
 
     /**
