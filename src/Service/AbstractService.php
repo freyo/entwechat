@@ -84,9 +84,9 @@ abstract class AbstractService extends AbstractAPI
     {
         parent::__construct($accessToken);
 
-        $this->clientId     = $this->getAccessToken()->getCorpId();
+        $this->clientId = $this->getAccessToken()->getCorpId();
         $this->clientSecret = $this->getAccessToken()->getSecret();
-        $this->request      = Request::createFromGlobals();
+        $this->request = Request::createFromGlobals();
     }
 
     /**
@@ -232,7 +232,7 @@ abstract class AbstractService extends AbstractAPI
      */
     protected function buildAuthUrlFromBase($url, $state)
     {
-        return $url . '?' . http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
+        return $url.'?'.http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
     }
 
     /**
@@ -245,9 +245,9 @@ abstract class AbstractService extends AbstractAPI
     protected function getCodeFields($state = null)
     {
         $fields = array_merge([
-            'client_id' => $this->clientId,
-            'redirect_uri' => $this->redirectUrl,
-            'scope' => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            'client_id'     => $this->clientId,
+            'redirect_uri'  => $this->redirectUrl,
+            'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
             'response_type' => 'code',
         ], $this->parameters);
 
@@ -297,10 +297,10 @@ abstract class AbstractService extends AbstractAPI
     protected function getTokenFields($code)
     {
         return [
-            'client_id' => $this->clientId,
+            'client_id'     => $this->clientId,
             'client_secret' => $this->clientSecret,
-            'code' => $code,
-            'redirect_uri' => $this->redirectUrl,
+            'code'          => $code,
+            'redirect_uri'  => $this->redirectUrl,
         ];
     }
 
@@ -371,7 +371,7 @@ abstract class AbstractService extends AbstractAPI
      */
     protected function makeState()
     {
-        $state   = sha1(uniqid(mt_rand(1, 1000000), true));
+        $state = sha1(uniqid(mt_rand(1, 1000000), true));
         $session = $this->request->getSession();
 
         if (is_callable([$session, 'put'])) {

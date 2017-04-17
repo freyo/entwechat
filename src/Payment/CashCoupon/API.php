@@ -21,9 +21,9 @@ class API extends AbstractAPI
     protected $merchant;
 
     // api
-    const API_SEND        = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon';
+    const API_SEND = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/send_coupon';
     const API_QUERY_STOCK = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/query_coupon_stock';
-    const API_QUERY       = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/querycouponsinfo';
+    const API_QUERY = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/querycouponsinfo';
 
     /**
      * API constructor.
@@ -106,15 +106,15 @@ class API extends AbstractAPI
      */
     protected function request($api, array $params, $method = 'post')
     {
-        $params              = array_filter($params);
-        $params['mch_id']    = $this->merchant->merchant_id;
-        $params['appid']     = $this->merchant->app_id;
+        $params = array_filter($params);
+        $params['mch_id'] = $this->merchant->merchant_id;
+        $params['appid'] = $this->merchant->app_id;
         $params['nonce_str'] = uniqid();
-        $params['sign']      = \EntWeChat\Payment\generate_sign($params, $this->merchant->key, 'md5');
+        $params['sign'] = \EntWeChat\Payment\generate_sign($params, $this->merchant->key, 'md5');
 
         $options = [
-            'body' => XML::build($params),
-            'cert' => $this->merchant->get('cert_path'),
+            'body'    => XML::build($params),
+            'cert'    => $this->merchant->get('cert_path'),
             'ssl_key' => $this->merchant->get('key_path'),
         ];
 
@@ -134,6 +134,6 @@ class API extends AbstractAPI
             $response = $response->getBody();
         }
 
-        return new Collection((array)XML::parse($response));
+        return new Collection((array) XML::parse($response));
     }
 }

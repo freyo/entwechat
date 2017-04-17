@@ -21,7 +21,7 @@ class API extends AbstractAPI
     protected $merchant;
 
     // api
-    const API_SEND  = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';
+    const API_SEND = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/promotion/transfers';
     const API_QUERY = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/gettransferinfo';
 
     /**
@@ -46,8 +46,8 @@ class API extends AbstractAPI
     public function query($mchBillNo)
     {
         $params = [
-            'appid' => $this->merchant->app_id,
-            'mch_id' => $this->merchant->merchant_id,
+            'appid'            => $this->merchant->app_id,
+            'mch_id'           => $this->merchant->merchant_id,
             'partner_trade_no' => $mchBillNo,
         ];
 
@@ -63,7 +63,7 @@ class API extends AbstractAPI
      */
     public function send(array $params)
     {
-        $params['mchid']     = $this->merchant->merchant_id;
+        $params['mchid'] = $this->merchant->merchant_id;
         $params['mch_appid'] = $this->merchant->app_id;
 
         return $this->request(self::API_SEND, $params);
@@ -102,13 +102,13 @@ class API extends AbstractAPI
      */
     protected function request($api, array $params, $method = 'post')
     {
-        $params              = array_filter($params);
+        $params = array_filter($params);
         $params['nonce_str'] = uniqid();
-        $params['sign']      = \EntWeChat\Payment\generate_sign($params, $this->merchant->key, 'md5');
+        $params['sign'] = \EntWeChat\Payment\generate_sign($params, $this->merchant->key, 'md5');
 
         $options = [
-            'body' => XML::build($params),
-            'cert' => $this->merchant->get('cert_path'),
+            'body'    => XML::build($params),
+            'cert'    => $this->merchant->get('cert_path'),
             'ssl_key' => $this->merchant->get('key_path'),
         ];
 
@@ -128,6 +128,6 @@ class API extends AbstractAPI
             $response = $response->getBody();
         }
 
-        return new Collection((array)XML::parse($response));
+        return new Collection((array) XML::parse($response));
     }
 }

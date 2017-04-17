@@ -73,15 +73,15 @@ trait PrefixedContainer
      *
      * @param string $key The unique identifier for the parameter or object
      *
-     * @return mixed The value of the parameter or an object
-     *
      * @throws \InvalidArgumentException If the identifier is not defined
+     *
+     * @return mixed The value of the parameter or an object
      */
     public function __get($key)
     {
         $className = basename(str_replace('\\', '/', static::class));
 
-        $name = Str::snake($className) . '.' . $key;
+        $name = Str::snake($className).'.'.$key;
 
         return $this->container->offsetGet($name);
     }

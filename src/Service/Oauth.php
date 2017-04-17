@@ -35,7 +35,7 @@ class Oauth extends AbstractService
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url . '?' . $query . '#wechat_redirect';
+        return $url.'?'.$query.'#wechat_redirect';
     }
 
     /**
@@ -44,19 +44,20 @@ class Oauth extends AbstractService
     protected function getCodeFields($state = null)
     {
         return array_merge([
-            'appid' => $this->clientId,
-            'redirect_uri' => $this->redirectUrl,
+            'appid'         => $this->clientId,
+            'redirect_uri'  => $this->redirectUrl,
             'response_type' => 'code',
-            'scope' => $this->formatScopes($this->scopes, $this->scopeSeparator),
-            'state' => $state ?: md5(time()),
+            'scope'         => $this->formatScopes($this->scopes, $this->scopeSeparator),
+            'state'         => $state ?: md5(time()),
         ], $this->parameters);
     }
 
     /**
      * @param null $code
      *
-     * @return \EntWeChat\Support\Collection
      * @throws InvalidStateException
+     *
+     * @return \EntWeChat\Support\Collection
      */
     public function user($code = null)
     {

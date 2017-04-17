@@ -30,7 +30,7 @@ class Transformer
             $class = get_class($message);
         }
 
-        $handle = 'transform' . substr($class, strlen('EntWeChat\Message\\'));
+        $handle = 'transform'.substr($class, strlen('EntWeChat\Message\\'));
 
         return method_exists($this, $handle) ? $this->$handle($message) : [];
     }
@@ -70,8 +70,8 @@ class Transformer
     {
         $response = [
             'Video' => [
-                'MediaId' => $message->get('media_id'),
-                'Title' => $message->get('title'),
+                'MediaId'     => $message->get('media_id'),
+                'Title'       => $message->get('title'),
                 'Description' => $message->get('description'),
             ],
         ];
@@ -88,10 +88,10 @@ class Transformer
     {
         $response = [
             'Music' => [
-                'Title' => $message->get('title'),
-                'Description' => $message->get('description'),
-                'MusicUrl' => $message->get('url'),
-                'HQMusicUrl' => $message->get('hq_url'),
+                'Title'        => $message->get('title'),
+                'Description'  => $message->get('description'),
+                'MusicUrl'     => $message->get('url'),
+                'HQMusicUrl'   => $message->get('hq_url'),
                 'ThumbMediaId' => $message->get('thumb_media_id'),
             ],
         ];
@@ -149,16 +149,16 @@ class Transformer
 
         foreach ($news as $item) {
             $articles[] = [
-                'Title' => $item->get('title'),
+                'Title'       => $item->get('title'),
                 'Description' => $item->get('description'),
-                'Url' => $item->get('url'),
-                'PicUrl' => $item->get('pic_url'),
+                'Url'         => $item->get('url'),
+                'PicUrl'      => $item->get('pic_url'),
             ];
         }
 
         return [
             'ArticleCount' => count($articles),
-            'Articles' => $articles,
+            'Articles'     => $articles,
         ];
     }
 
@@ -166,9 +166,9 @@ class Transformer
     {
         $response = [
             'DeviceType' => $message->get('device_type'),
-            'DeviceID' => $message->get('device_id'),
-            'SessionID' => $message->get('session_id'),
-            'Content' => base64_encode($message->get('content')),
+            'DeviceID'   => $message->get('device_id'),
+            'SessionID'  => $message->get('session_id'),
+            'Content'    => base64_encode($message->get('content')),
         ];
 
         return $response;

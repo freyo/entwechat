@@ -30,7 +30,7 @@ class Transformer
             $class = get_class($message);
         }
 
-        $handle = 'transform' . substr($class, strlen('EntWeChat\Message\\'));
+        $handle = 'transform'.substr($class, strlen('EntWeChat\Message\\'));
 
         return method_exists($this, $handle) ? $this->$handle($message) : [];
     }
@@ -44,7 +44,7 @@ class Transformer
     {
         return [
             'msgtype' => 'text',
-            'text' => [
+            'text'    => [
                 'content' => $message->get('content'),
             ],
         ];
@@ -59,7 +59,7 @@ class Transformer
     {
         return [
             'msgtype' => 'image',
-            'image' => [
+            'image'   => [
                 'media_id' => $message->get('media_id'),
             ],
         ];
@@ -74,11 +74,11 @@ class Transformer
     {
         return [
             'msgtype' => 'music',
-            'music' => [
-                'title' => $message->get('title'),
-                'description' => $message->get('description'),
-                'musicurl' => $message->get('url'),
-                'hqmusicurl' => $message->get('hq_url'),
+            'music'   => [
+                'title'          => $message->get('title'),
+                'description'    => $message->get('description'),
+                'musicurl'       => $message->get('url'),
+                'hqmusicurl'     => $message->get('hq_url'),
                 'thumb_media_id' => $message->get('thumb_media_id'),
             ],
         ];
@@ -93,10 +93,10 @@ class Transformer
     {
         return [
             'msgtype' => 'video',
-            'video' => [
-                'title' => $message->get('title'),
-                'media_id' => $message->get('media_id'),
-                'description' => $message->get('description'),
+            'video'   => [
+                'title'          => $message->get('title'),
+                'media_id'       => $message->get('media_id'),
+                'description'    => $message->get('description'),
                 'thumb_media_id' => $message->get('thumb_media_id'),
             ],
         ];
@@ -111,7 +111,7 @@ class Transformer
     {
         return [
             'msgtype' => 'voice',
-            'voice' => [
+            'voice'   => [
                 'media_id' => $message->get('media_id'),
             ],
         ];
@@ -132,10 +132,10 @@ class Transformer
 
         foreach ($news as $item) {
             $articles[] = [
-                'title' => $item->get('title'),
+                'title'       => $item->get('title'),
                 'description' => $item->get('description'),
-                'url' => $item->get('url'),
-                'picurl' => $item->get('pic_url'),
+                'url'         => $item->get('url'),
+                'picurl'      => $item->get('pic_url'),
             ];
         }
 
@@ -153,7 +153,7 @@ class Transformer
 
         return [
             'msgtype' => $type,
-            $type => [
+            $type     => [
                 'media_id' => $message->get('media_id'),
             ],
         ];

@@ -25,17 +25,17 @@ class Guard
      */
     const SUCCESS_EMPTY_RESPONSE = 'success';
 
-    const TEXT_MSG         = 2;
-    const IMAGE_MSG        = 4;
-    const VOICE_MSG        = 8;
-    const VIDEO_MSG        = 16;
-    const SHORT_VIDEO_MSG  = 32;
-    const LOCATION_MSG     = 64;
-    const LINK_MSG         = 128;
+    const TEXT_MSG = 2;
+    const IMAGE_MSG = 4;
+    const VOICE_MSG = 8;
+    const VIDEO_MSG = 16;
+    const SHORT_VIDEO_MSG = 32;
+    const LOCATION_MSG = 64;
+    const LINK_MSG = 128;
     const DEVICE_EVENT_MSG = 256;
-    const DEVICE_TEXT_MSG  = 512;
-    const EVENT_MSG        = 1048576;
-    const ALL_MSG          = 1049598;
+    const DEVICE_TEXT_MSG = 512;
+    const EVENT_MSG = 1048576;
+    const ALL_MSG = 1049598;
 
     /**
      * @var Request
@@ -66,16 +66,16 @@ class Guard
      * @var array
      */
     protected $messageTypeMapping = [
-        'text' => 2,
-        'image' => 4,
-        'voice' => 8,
-        'video' => 16,
-        'shortvideo' => 32,
-        'location' => 64,
-        'link' => 128,
+        'text'         => 2,
+        'image'        => 4,
+        'voice'        => 8,
+        'video'        => 16,
+        'shortvideo'   => 32,
+        'location'     => 64,
+        'link'         => 128,
         'device_event' => 256,
-        'device_text' => 512,
-        'event' => 1048576,
+        'device_text'  => 512,
+        'event'        => 1048576,
     ];
 
     /**
@@ -91,7 +91,7 @@ class Guard
      */
     public function __construct($token, Request $request = null)
     {
-        $this->token   = $token;
+        $this->token = $token;
         $this->request = $request ?: Request::createFromGlobals();
     }
 
@@ -112,18 +112,18 @@ class Guard
     /**
      * Handle and return response.
      *
-     * @return Response
-     *
      * @throws BadRequestException
+     *
+     * @return Response
      */
     public function serve()
     {
         Log::debug('Request received:', [
-            'Method' => $this->request->getMethod(),
-            'URI' => $this->request->getRequestUri(),
-            'Query' => $this->request->getQueryString(),
+            'Method'   => $this->request->getMethod(),
+            'URI'      => $this->request->getRequestUri(),
+            'Query'    => $this->request->getQueryString(),
             'Protocol' => $this->request->server->get('SERVER_PROTOCOL'),
-            'Content' => $this->request->getContent(),
+            'Content'  => $this->request->getContent(),
         ]);
 
         $this->validate($this->token);
@@ -169,9 +169,9 @@ class Guard
      * @param callable $callback
      * @param int      $option
      *
-     * @return Guard
-     *
      * @throws InvalidArgumentException
+     *
+     * @return Guard
      */
     public function setMessageHandler($callback = null, $option = self::ALL_MSG)
     {
@@ -180,7 +180,7 @@ class Guard
         }
 
         $this->messageHandler = $callback;
-        $this->messageFilter  = $option;
+        $this->messageFilter = $option;
 
         return $this;
     }
@@ -250,9 +250,9 @@ class Guard
      * @param       $from
      * @param mixed $message
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     protected function buildResponse($to, $from, $message)
     {
@@ -312,9 +312,9 @@ class Guard
     /**
      * Get request message.
      *
-     * @return array
-     *
      * @throws BadRequestException
+     *
+     * @return array
      */
     public function getMessage()
     {
@@ -330,19 +330,19 @@ class Guard
     /**
      * Handle request.
      *
-     * @return array
-     *
      * @throws \EntWeChat\Core\Exceptions\RuntimeException
      * @throws \EntWeChat\Server\BadRequestException
+     *
+     * @return array
      */
     protected function handleRequest()
     {
-        $message  = $this->getMessage();
+        $message = $this->getMessage();
         $response = $this->handleMessage($message);
 
         return [
-            'to' => $message['FromUserName'],
-            'from' => $message['ToUserName'],
+            'to'       => $message['FromUserName'],
+            'from'     => $message['ToUserName'],
             'response' => $response,
         ];
     }
@@ -361,7 +361,7 @@ class Guard
         if (!is_callable($handler)) {
             Log::debug('No handler enabled.');
 
-            return null;
+            return;
         }
 
         Log::debug('Message detail:', $message);
@@ -391,10 +391,10 @@ class Guard
     protected function buildReply($to, $from, $message)
     {
         $base = [
-            'ToUserName' => $to,
+            'ToUserName'   => $to,
             'FromUserName' => $from,
-            'CreateTime' => time(),
-            'MsgType' => is_array($message) ? current($message)->getType() : $message->getType(),
+            'CreateTime'   => time(),
+            'MsgType'      => is_array($message) ? current($message)->getType() : $message->getType(),
         ];
 
         $transformer = new Transformer();

@@ -67,9 +67,9 @@ class MessageBuilder
      *
      * @param string|AbstractMessage $message
      *
-     * @return MessageBuilder
-     *
      * @throws InvalidArgumentException
+     *
+     * @return MessageBuilder
      */
     public function message($message)
     {
@@ -94,8 +94,8 @@ class MessageBuilder
     {
         $this->account = [
             'type' => $type,
-            'id' => $id,
-        ];;
+            'id'   => $id,
+        ];
 
         return $this;
     }
@@ -112,7 +112,7 @@ class MessageBuilder
     {
         $this->to = [
             'type' => $type,
-            'id' => $id,
+            'id'   => $id,
         ];
 
         return $this;
@@ -121,9 +121,9 @@ class MessageBuilder
     /**
      * Send the message.
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     public function send()
     {
@@ -138,7 +138,7 @@ class MessageBuilder
         } else {
             $content = $transformer->transform($this->message);
             $message = [
-                'sender' => $this->by,
+                'sender'   => $this->by,
                 'receiver' => $this->to,
             ];
 

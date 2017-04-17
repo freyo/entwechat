@@ -93,9 +93,9 @@ abstract class Attribute extends Collection
      * @param string $attribute
      * @param mixed  $value
      *
-     * @return Attribute
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return Attribute
      */
     public function with($attribute, $value)
     {
@@ -222,9 +222,9 @@ abstract class Attribute extends Collection
     /**
      * Return all items.
      *
-     * @return array
-     *
      * @throws InvalidArgumentException
+     *
+     * @return array
      */
     public function all()
     {

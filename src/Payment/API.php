@@ -20,28 +20,28 @@ class API extends AbstractAPI
     protected $merchant;
 
     // api
-    const API_PAY_ORDER           = 'https://api.mch.weixin.qq.com/pay/micropay';
-    const API_PREPARE_ORDER       = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
-    const API_QUERY               = 'https://api.mch.weixin.qq.com/pay/orderquery';
-    const API_CLOSE               = 'https://api.mch.weixin.qq.com/pay/closeorder';
-    const API_REVERSE             = 'https://api.mch.weixin.qq.com/secapi/pay/reverse';
-    const API_REFUND              = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
-    const API_QUERY_REFUND        = 'https://api.mch.weixin.qq.com/pay/refundquery';
-    const API_DOWNLOAD_BILL       = 'https://api.mch.weixin.qq.com/pay/downloadbill';
-    const API_REPORT              = 'https://api.mch.weixin.qq.com/payitil/report';
-    const API_URL_SHORTEN         = 'https://api.mch.weixin.qq.com/tools/shorturl';
+    const API_PAY_ORDER = 'https://api.mch.weixin.qq.com/pay/micropay';
+    const API_PREPARE_ORDER = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
+    const API_QUERY = 'https://api.mch.weixin.qq.com/pay/orderquery';
+    const API_CLOSE = 'https://api.mch.weixin.qq.com/pay/closeorder';
+    const API_REVERSE = 'https://api.mch.weixin.qq.com/secapi/pay/reverse';
+    const API_REFUND = 'https://api.mch.weixin.qq.com/secapi/pay/refund';
+    const API_QUERY_REFUND = 'https://api.mch.weixin.qq.com/pay/refundquery';
+    const API_DOWNLOAD_BILL = 'https://api.mch.weixin.qq.com/pay/downloadbill';
+    const API_REPORT = 'https://api.mch.weixin.qq.com/payitil/report';
+    const API_URL_SHORTEN = 'https://api.mch.weixin.qq.com/tools/shorturl';
     const API_AUTH_CODE_TO_OPENID = 'https://api.mch.weixin.qq.com/tools/authcodetoopenid';
 
     // order id types.
     const TRANSACTION_ID = 'transaction_id';
-    const OUT_TRADE_NO   = 'out_trade_no';
-    const OUT_REFUND_NO  = 'out_refund_no';
-    const REFUND_ID      = 'refund_id';
+    const OUT_TRADE_NO = 'out_trade_no';
+    const OUT_REFUND_NO = 'out_refund_no';
+    const REFUND_ID = 'refund_id';
 
     // bill types.
-    const BILL_TYPE_ALL     = 'ALL';
+    const BILL_TYPE_ALL = 'ALL';
     const BILL_TYPE_SUCCESS = 'SUCCESS';
-    const BILL_TYPE_REFUND  = 'REFUND';
+    const BILL_TYPE_REFUND = 'REFUND';
     const BILL_TYPE_REVOKED = 'REVOKED';
 
     /**
@@ -177,16 +177,15 @@ class API extends AbstractAPI
         $opUserId = null,
         $type = self::OUT_TRADE_NO,
         $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS'
-    )
-    {
+    ) {
         $params = [
-            $type => $orderNo,
-            'out_refund_no' => $refundNo,
-            'total_fee' => $totalFee,
-            'refund_fee' => $refundFee ?: $totalFee,
+            $type             => $orderNo,
+            'out_refund_no'   => $refundNo,
+            'total_fee'       => $totalFee,
+            'refund_fee'      => $refundFee ?: $totalFee,
             'refund_fee_type' => $this->merchant->fee_type,
-            'refund_account' => $refundAccount,
-            'op_user_id' => $opUserId ?: $this->merchant->merchant_id,
+            'refund_account'  => $refundAccount,
+            'op_user_id'      => $opUserId ?: $this->merchant->merchant_id,
         ];
 
         return $this->safeRequest(self::API_REFUND, $params);
@@ -210,8 +209,7 @@ class API extends AbstractAPI
         $refundFee = null,
         $opUserId = null,
         $refundAccount = 'REFUND_SOURCE_UNSETTLED_FUNDS'
-    )
-    {
+    ) {
         return $this->refund($orderNo, $refundNo, $totalFee, $refundFee, $opUserId, self::TRANSACTION_ID, $refundAccount);
     }
 
@@ -305,7 +303,7 @@ class API extends AbstractAPI
      * @param int    $timeConsuming
      * @param string $resultCode
      * @param string $returnCode
-     * @param array  $other ex: err_code,err_code_des,out_trade_no,user_ip...
+     * @param array  $other         ex: err_code,err_code_des,out_trade_no,user_ip...
      *
      * @return \EntWeChat\Support\Collection
      */
@@ -314,11 +312,11 @@ class API extends AbstractAPI
         $params = array_merge([
             'interface_url' => $api,
             'execute_time_' => $timeConsuming,
-            'return_code' => $returnCode,
-            'return_msg' => null,
-            'result_code' => $resultCode,
-            'user_ip' => get_client_ip(),
-            'time' => time(),
+            'return_code'   => $returnCode,
+            'return_msg'    => null,
+            'result_code'   => $resultCode,
+            'user_ip'       => get_client_ip(),
+            'time'          => time(),
         ], $other);
 
         return $this->request(self::API_REPORT, $params);
@@ -373,12 +371,12 @@ class API extends AbstractAPI
     {
         $params = array_merge($params, $this->merchant->only(['sub_appid', 'sub_mch_id']));
 
-        $params['appid']       = $this->merchant->app_id;
-        $params['mch_id']      = $this->merchant->merchant_id;
+        $params['appid'] = $this->merchant->app_id;
+        $params['mch_id'] = $this->merchant->merchant_id;
         $params['device_info'] = $this->merchant->device_info;
-        $params['nonce_str']   = uniqid();
-        $params                = array_filter($params);
-        $params['sign']        = generate_sign($params, $this->merchant->key, 'md5');
+        $params['nonce_str'] = uniqid();
+        $params = array_filter($params);
+        $params['sign'] = generate_sign($params, $this->merchant->key, 'md5');
 
         $options = array_merge([
             'body' => XML::build($params),
@@ -401,7 +399,7 @@ class API extends AbstractAPI
     protected function safeRequest($api, array $params, $method = 'post')
     {
         $options = [
-            'cert' => $this->merchant->get('cert_path'),
+            'cert'    => $this->merchant->get('cert_path'),
             'ssl_key' => $this->merchant->get('key_path'),
         ];
 
@@ -421,6 +419,6 @@ class API extends AbstractAPI
             $response = $response->getBody();
         }
 
-        return new Collection((array)XML::parse($response));
+        return new Collection((array) XML::parse($response));
     }
 }

@@ -9,11 +9,11 @@ use EntWeChat\Core\AbstractAPI;
  */
 class Staff extends AbstractAPI
 {
-    const API_LISTS        = 'https://qyapi.weixin.qq.com/cgi-bin/kf/list';
+    const API_LISTS = 'https://qyapi.weixin.qq.com/cgi-bin/kf/list';
     const API_MESSAGE_SEND = 'https://qyapi.weixin.qq.com/cgi-bin/kf/send';
 
     //用户类型
-    const USER_TYPE_STAFF  = 'kf';      // 客服
+    const USER_TYPE_STAFF = 'kf';      // 客服
     const USER_TYPE_USERID = 'userid';  // 客户UserId
     const USER_TYPE_OPENID = 'openid';  // 客户OpenId
 
@@ -42,9 +42,9 @@ class Staff extends AbstractAPI
      *
      * @param \EntWeChat\Message\AbstractMessage|string $message
      *
-     * @return \EntWeChat\Staff\MessageBuilder
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return \EntWeChat\Staff\MessageBuilder
      */
     public function message($message)
     {

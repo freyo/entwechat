@@ -23,8 +23,8 @@ class Soter extends AbstractAPI
     public function verify($openid, $jsonString, $jsonSignature)
     {
         $params = [
-            'openid' => $openid,
-            'json_string' => $jsonString,
+            'openid'         => $openid,
+            'json_string'    => $jsonString,
             'json_signature' => $jsonSignature,
         ];
 

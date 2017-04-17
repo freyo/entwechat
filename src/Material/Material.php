@@ -18,13 +18,13 @@ class Material extends AbstractAPI
      */
     protected $allowTypes = ['image', 'voice', 'video', 'file', 'news_image'];
 
-    const API_GET               = 'https://qyapi.weixin.qq.com/cgi-bin/material/get';
-    const API_UPLOAD            = 'https://qyapi.weixin.qq.com/cgi-bin/material/add_material';
-    const API_DELETE            = 'https://qyapi.weixin.qq.com/cgi-bin/material/del';
-    const API_STATS             = 'https://qyapi.weixin.qq.com/cgi-bin/material/get_count';
-    const API_LISTS             = 'https://qyapi.weixin.qq.com/cgi-bin/material/batchget';
-    const API_NEWS_UPLOAD       = 'https://qyapi.weixin.qq.com/cgi-bin/material/add_mpnews';
-    const API_NEWS_UPDATE       = 'https://qyapi.weixin.qq.com/cgi-bin/material/update_mpnews';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/material/get';
+    const API_UPLOAD = 'https://qyapi.weixin.qq.com/cgi-bin/material/add_material';
+    const API_DELETE = 'https://qyapi.weixin.qq.com/cgi-bin/material/del';
+    const API_STATS = 'https://qyapi.weixin.qq.com/cgi-bin/material/get_count';
+    const API_LISTS = 'https://qyapi.weixin.qq.com/cgi-bin/material/batchget';
+    const API_NEWS_UPLOAD = 'https://qyapi.weixin.qq.com/cgi-bin/material/add_mpnews';
+    const API_NEWS_UPDATE = 'https://qyapi.weixin.qq.com/cgi-bin/material/update_mpnews';
     const API_NEWS_IMAGE_UPLOAD = 'https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg';
 
     /**
@@ -77,7 +77,7 @@ class Material extends AbstractAPI
         $params = [
             'description' => json_encode(
                 [
-                    'title' => $title,
+                    'title'        => $title,
                     'introduction' => $description,
                 ], JSON_UNESCAPED_UNICODE),
         ];
@@ -125,7 +125,7 @@ class Material extends AbstractAPI
     {
         $params = [
             'media_id' => $mediaId,
-            'index' => $index,
+            'index'    => $index,
             'articles' => isset($article['title']) ? $article : (isset($article[$index]) ? $article[$index] : []),
         ];
 
@@ -211,9 +211,9 @@ class Material extends AbstractAPI
     public function lists($type, $offset = 0, $count = 50)
     {
         $params = [
-            'type' => $type,
+            'type'   => $type,
             'offset' => intval($offset),
-            'count' => min(50, $count),
+            'count'  => min(50, $count),
         ];
 
         return $this->parseJSON('json', [self::API_LISTS, $params]);
@@ -236,9 +236,9 @@ class Material extends AbstractAPI
      * @param string $path
      * @param array  $form
      *
-     * @return string
-     *
      * @throws InvalidArgumentException
+     *
+     * @return string
      */
     protected function uploadMedia($type, $path, array $form = [])
     {

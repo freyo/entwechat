@@ -52,16 +52,16 @@ class Payment
     public function scheme($productId)
     {
         $params = [
-            'appid' => $this->merchant->app_id,
-            'mch_id' => $this->merchant->merchant_id,
+            'appid'      => $this->merchant->app_id,
+            'mch_id'     => $this->merchant->merchant_id,
             'time_stamp' => time(),
-            'nonce_str' => uniqid(),
+            'nonce_str'  => uniqid(),
             'product_id' => $productId,
         ];
 
         $params['sign'] = generate_sign($params, $this->merchant->key, 'md5');
 
-        return self::SCHEME_PATH . '?' . http_build_query($params);
+        return self::SCHEME_PATH.'?'.http_build_query($params);
     }
 
     /**
@@ -79,7 +79,7 @@ class Payment
             throw new FaultException('Invalid request payloads.', 400);
         }
 
-        $notify     = $notify->getNotify();
+        $notify = $notify->getNotify();
         $successful = $notify->get('result_code') === 'SUCCESS';
 
         $handleResult = call_user_func_array($callback, [$notify, $successful]);
@@ -87,12 +87,12 @@ class Payment
         if (is_bool($handleResult) && $handleResult) {
             $response = [
                 'return_code' => 'SUCCESS',
-                'return_msg' => 'OK',
+                'return_msg'  => 'OK',
             ];
         } else {
             $response = [
                 'return_code' => 'FAIL',
-                'return_msg' => $handleResult,
+                'return_msg'  => $handleResult,
             ];
         }
 
@@ -119,21 +119,21 @@ class Payment
         $notify = $notify->getNotify();
 
         try {
-            $prepayId         = call_user_func_array($callback, [$notify->get('product_id'), $notify->get('openid'), $notify]);
-            $response         = [
+            $prepayId = call_user_func_array($callback, [$notify->get('product_id'), $notify->get('openid'), $notify]);
+            $response = [
                 'return_code' => 'SUCCESS',
-                'appid' => $this->merchant->app_id,
-                'mch_id' => $this->merchant->merchant_id,
-                'nonce_str' => uniqid(),
-                'prepay_id' => strval($prepayId),
+                'appid'       => $this->merchant->app_id,
+                'mch_id'      => $this->merchant->merchant_id,
+                'nonce_str'   => uniqid(),
+                'prepay_id'   => strval($prepayId),
                 'result_code' => 'SUCCESS',
             ];
             $response['sign'] = generate_sign($response, $this->merchant->key);
         } catch (\Exception $e) {
             $response = [
-                'return_code' => 'SUCCESS',
-                'return_msg' => $e->getCode(),
-                'result_code' => 'FAIL',
+                'return_code'  => 'SUCCESS',
+                'return_msg'   => $e->getCode(),
+                'result_code'  => 'FAIL',
                 'err_code_des' => $e->getMessage(),
             ];
         }
@@ -159,11 +159,11 @@ class Payment
     public function configForPayment($prepayId, $json = true)
     {
         $params = [
-            'appId' => $this->merchant->app_id,
+            'appId'     => $this->merchant->app_id,
             'timeStamp' => strval(time()),
-            'nonceStr' => uniqid(),
-            'package' => "prepay_id=$prepayId",
-            'signType' => 'MD5',
+            'nonceStr'  => uniqid(),
+            'package'   => "prepay_id=$prepayId",
+            'signType'  => 'MD5',
         ];
 
         $params['paySign'] = generate_sign($params, $this->merchant->key, 'md5');
@@ -202,12 +202,12 @@ class Payment
     public function configForAppPayment($prepayId)
     {
         $params = [
-            'appid' => $this->merchant->app_id,
+            'appid'     => $this->merchant->app_id,
             'partnerid' => $this->merchant->merchant_id,
-            'prepayid' => $prepayId,
-            'noncestr' => uniqid(),
+            'prepayid'  => $prepayId,
+            'noncestr'  => uniqid(),
             'timestamp' => time(),
-            'package' => 'Sign=WXPay',
+            'package'   => 'Sign=WXPay',
         ];
 
         $params['sign'] = generate_sign($params, $this->merchant->key);
@@ -230,18 +230,18 @@ class Payment
         }
 
         $params = [
-            'appId' => $this->merchant->app_id,
-            'scope' => 'jsapi_address',
+            'appId'     => $this->merchant->app_id,
+            'scope'     => 'jsapi_address',
             'timeStamp' => strval(time()),
-            'nonceStr' => uniqid(),
-            'signType' => 'SHA1',
+            'nonceStr'  => uniqid(),
+            'signType'  => 'SHA1',
         ];
 
         $signParams = [
-            'appid' => $params['appId'],
-            'url' => UrlHelper::current(),
-            'timestamp' => $params['timeStamp'],
-            'noncestr' => $params['nonceStr'],
+            'appid'       => $params['appId'],
+            'url'         => UrlHelper::current(),
+            'timestamp'   => $params['timeStamp'],
+            'noncestr'    => $params['nonceStr'],
             'accesstoken' => strval($accessToken),
         ];
 

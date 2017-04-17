@@ -31,30 +31,30 @@ class Card extends AbstractAPI
      */
     protected $ticketCachePrefix = 'entwechat.card_api_ticket.';
 
-    const API_CREATE_CARD     = 'https://qyapi.weixin.qq.com/cgi-bin/card/create';
-    const API_CREATE_QRCODE   = 'https://qyapi.weixin.qq.com/cgi-bin/card/qrcode/create';
-    const API_SHOW_QRCODE     = 'https://mp.weixin.qq.com/cgi-bin/showqrcode';
+    const API_CREATE_CARD = 'https://qyapi.weixin.qq.com/cgi-bin/card/create';
+    const API_CREATE_QRCODE = 'https://qyapi.weixin.qq.com/cgi-bin/card/qrcode/create';
+    const API_SHOW_QRCODE = 'https://mp.weixin.qq.com/cgi-bin/showqrcode';
     const API_GET_CARD_TICKET = 'https://qyapi.weixin.qq.com/cgi-bin/ticket/get';
-    const API_GET_HTML        = 'https://qyapi.weixin.qq.com/cgi-bin/card/mpnews/gethtml';
-    const API_GET_CODE        = 'https://qyapi.weixin.qq.com/cgi-bin/card/code/get';
-    const API_CONSUME_CARD    = 'https://qyapi.weixin.qq.com/cgi-bin/card/code/consume';
-    const API_GET_CARD        = 'https://qyapi.weixin.qq.com/cgi-bin/card/get';
-    const API_LIST_CARD       = 'https://qyapi.weixin.qq.com/cgi-bin/card/batchget';
-    const API_MODIFY_STOCK    = 'https://qyapi.weixin.qq.com/cgi-bin/card/modifystock';
-    const API_DELETE_CARD     = 'https://qyapi.weixin.qq.com/cgi-bin/card/delete';
+    const API_GET_HTML = 'https://qyapi.weixin.qq.com/cgi-bin/card/mpnews/gethtml';
+    const API_GET_CODE = 'https://qyapi.weixin.qq.com/cgi-bin/card/code/get';
+    const API_CONSUME_CARD = 'https://qyapi.weixin.qq.com/cgi-bin/card/code/consume';
+    const API_GET_CARD = 'https://qyapi.weixin.qq.com/cgi-bin/card/get';
+    const API_LIST_CARD = 'https://qyapi.weixin.qq.com/cgi-bin/card/batchget';
+    const API_MODIFY_STOCK = 'https://qyapi.weixin.qq.com/cgi-bin/card/modifystock';
+    const API_DELETE_CARD = 'https://qyapi.weixin.qq.com/cgi-bin/card/delete';
 
     // 卡券类型
     const TYPE_GENERAL_COUPON = 'GENERAL_COUPON';   // 通用券
-    const TYPE_GROUPON        = 'GROUPON';          // 团购券
-    const TYPE_DISCOUNT       = 'DISCOUNT';         // 折扣券
-    const TYPE_GIFT           = 'GIFT';             // 礼品券
-    const TYPE_CASH           = 'CASH';             // 代金券
+    const TYPE_GROUPON = 'GROUPON';          // 团购券
+    const TYPE_DISCOUNT = 'DISCOUNT';         // 折扣券
+    const TYPE_GIFT = 'GIFT';             // 礼品券
+    const TYPE_CASH = 'CASH';             // 代金券
 
     // 卡券状态
-    const CARD_STATUS_NOT_VERIFY    = 'CARD_STATUS_NOT_VERIFY';    // 待审核
-    const CARD_STATUS_VERIFY_FAIL   = 'CARD_STATUS_VERIFY_FAIL';   // 审核失败
-    const CARD_STATUS_VERIFY_OK     = 'CARD_STATUS_VERIFY_OK';     // 通过审核
-    const CARD_STATUS_USER_DELETE   = 'CARD_STATUS_USER_DELETE';   // 卡券被商户删除
+    const CARD_STATUS_NOT_VERIFY = 'CARD_STATUS_NOT_VERIFY';    // 待审核
+    const CARD_STATUS_VERIFY_FAIL = 'CARD_STATUS_VERIFY_FAIL';   // 审核失败
+    const CARD_STATUS_VERIFY_OK = 'CARD_STATUS_VERIFY_OK';     // 通过审核
+    const CARD_STATUS_USER_DELETE = 'CARD_STATUS_USER_DELETE';   // 卡券被商户删除
     const CARD_STATUS_USER_DISPATCH = 'CARD_STATUS_USER_DISPATCH'; // 在公众平台投放过的卡券
 
     /**
@@ -71,7 +71,7 @@ class Card extends AbstractAPI
     {
         $params = [
             'card' => [
-                'card_type' => strtoupper($cardType),
+                'card_type'           => strtoupper($cardType),
                 strtolower($cardType) => array_merge(['base_info' => $baseInfo], $especial, ['advanced_info' => $advancedInfo]),
             ],
         ];
@@ -110,11 +110,11 @@ class Card extends AbstractAPI
         $response = $http->get(self::API_SHOW_QRCODE, $params);
 
         return [
-            'status' => $response->getStatusCode(),
-            'reason' => $response->getReasonPhrase(),
+            'status'  => $response->getStatusCode(),
+            'reason'  => $response->getReasonPhrase(),
             'headers' => $response->getHeaders(),
-            'body' => strval($response->getBody()),
-            'url' => self::API_SHOW_QRCODE . '?' . http_build_query($params),
+            'body'    => strval($response->getBody()),
+            'url'     => self::API_SHOW_QRCODE.'?'.http_build_query($params),
         ];
     }
 
@@ -127,7 +127,7 @@ class Card extends AbstractAPI
      */
     public function getQRCodeUrl($ticket)
     {
-        return self::API_SHOW_QRCODE . '?ticket=' . $ticket;
+        return self::API_SHOW_QRCODE.'?ticket='.$ticket;
     }
 
     /**
@@ -178,15 +178,15 @@ class Card extends AbstractAPI
      */
     public function attachExtension($cardId, array $extension = [])
     {
-        $timestamp        = time();
-        $ext              = [
-            'code' => Arr::get($extension, 'code'),
-            'openid' => Arr::get($extension, 'openid', Arr::get($extension, 'open_id')),
-            'timestamp' => $timestamp,
-            'outer_id' => Arr::get($extension, 'outer_id'),
-            'balance' => Arr::get($extension, 'balance'),
+        $timestamp = time();
+        $ext = [
+            'code'                 => Arr::get($extension, 'code'),
+            'openid'               => Arr::get($extension, 'openid', Arr::get($extension, 'open_id')),
+            'timestamp'            => $timestamp,
+            'outer_id'             => Arr::get($extension, 'outer_id'),
+            'balance'              => Arr::get($extension, 'balance'),
             'fixed_begintimestamp' => Arr::get($extension, 'fixed_begintimestamp'),
-            'outer_str' => Arr::get($extension, 'outer_str'),
+            'outer_str'            => Arr::get($extension, 'outer_str'),
         ];
         $ext['signature'] = $this->getSignature(
             $this->getAPITicket(),
@@ -198,7 +198,7 @@ class Card extends AbstractAPI
         );
 
         return [
-            'cardId' => $cardId,
+            'cardId'  => $cardId,
             'cardExt' => json_encode($ext),
         ];
     }
@@ -228,7 +228,7 @@ class Card extends AbstractAPI
     {
         $params = [
             'card_id' => $cardId,
-            'code' => $code,
+            'code'    => $code,
         ];
 
         return $this->parseJSON('json', [self::API_CHECK_CODE, $params]);
@@ -246,9 +246,9 @@ class Card extends AbstractAPI
     public function getCode($code, $checkConsume, $cardId)
     {
         $params = [
-            'code' => $code,
+            'code'          => $code,
             'check_consume' => $checkConsume,
-            'card_id' => $cardId,
+            'card_id'       => $cardId,
         ];
 
         return $this->parseJSON('json', [self::API_GET_CODE, $params]);
@@ -323,8 +323,8 @@ class Card extends AbstractAPI
     public function lists($offset = 0, $count = 10, $statusList = 'CARD_STATUS_VERIFY_OK')
     {
         $params = [
-            'offset' => $offset,
-            'count' => $count,
+            'offset'      => $offset,
+            'count'       => $count,
             'status_list' => $statusList,
         ];
 
@@ -368,10 +368,10 @@ class Card extends AbstractAPI
      */
     protected function updateStock($cardId, $amount, $action = 'increase')
     {
-        $key    = $action === 'increase' ? 'increase_stock_value' : 'reduce_stock_value';
+        $key = $action === 'increase' ? 'increase_stock_value' : 'reduce_stock_value';
         $params = [
             'card_id' => $cardId,
-            $key => abs($amount),
+            $key      => abs($amount),
         ];
 
         return $this->parseJSON('json', [self::API_MODIFY_STOCK, $params]);
@@ -453,7 +453,7 @@ class Card extends AbstractAPI
     public function getTicketCacheKey()
     {
         if (is_null($this->ticketCacheKey)) {
-            return $this->ticketCachePrefix . $this->getAccessToken()->getFingerprint();
+            return $this->ticketCachePrefix.$this->getAccessToken()->getFingerprint();
         }
 
         return $this->ticketCacheKey;

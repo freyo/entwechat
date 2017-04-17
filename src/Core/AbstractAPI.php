@@ -29,7 +29,7 @@ abstract class AbstractAPI
      */
     protected $accessToken;
 
-    const GET  = 'get';
+    const GET = 'get';
     const POST = 'post';
     const JSON = 'json';
 
@@ -162,8 +162,8 @@ abstract class AbstractAPI
     protected function logMiddleware()
     {
         return Middleware::tap(function (RequestInterface $request, $options) {
-            Log::debug("Request: {$request->getMethod()} {$request->getUri()} " . json_encode($options));
-            Log::debug('Request headers:' . json_encode($request->getHeaders()));
+            Log::debug("Request: {$request->getMethod()} {$request->getUri()} ".json_encode($options));
+            Log::debug('Request headers:'.json_encode($request->getHeaders()));
         });
     }
 
