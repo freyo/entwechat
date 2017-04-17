@@ -27,9 +27,9 @@ use EntWeChat\Support\Attribute;
  */
 class Order extends Attribute
 {
-    const JSAPI    = 'JSAPI';
-    const NATIVE   = 'NATIVE';
-    const APP      = 'APP';
+    const JSAPI = 'JSAPI';
+    const NATIVE = 'NATIVE';
+    const APP = 'APP';
     const MICROPAY = 'MICROPAY';
 
     protected $attributes = [

@@ -70,9 +70,9 @@ class Http
      * @param string $url
      * @param array  $options
      *
-     * @return ResponseInterface
-     *
      * @throws HttpException
+     *
+     * @return ResponseInterface
      */
     public function get($url, array $options = [])
     {
@@ -85,9 +85,9 @@ class Http
      * @param string       $url
      * @param array|string $options
      *
-     * @return ResponseInterface
-     *
      * @throws HttpException
+     *
+     * @return ResponseInterface
      */
     public function post($url, $options = [])
     {
@@ -104,9 +104,9 @@ class Http
      * @param array        $queries
      * @param int          $encodeOption
      *
-     * @return ResponseInterface
-     *
      * @throws HttpException
+     *
+     * @return ResponseInterface
      */
     public function json($url, $options = [], $encodeOption = JSON_UNESCAPED_UNICODE, $queries = [])
     {
@@ -122,9 +122,9 @@ class Http
      * @param array  $files
      * @param array  $form
      *
-     * @return ResponseInterface
-     *
      * @throws HttpException
+     *
+     * @return ResponseInterface
      */
     public function upload($url, array $files = [], array $form = [], array $queries = [])
     {
@@ -132,7 +132,7 @@ class Http
 
         foreach ($files as $name => $path) {
             $multipart[] = [
-                'name' => $name,
+                'name'     => $name,
                 'contents' => fopen($path, 'r'),
             ];
         }
@@ -203,9 +203,9 @@ class Http
      * @param string $method
      * @param array  $options
      *
-     * @return ResponseInterface
-     *
      * @throws HttpException
+     *
+     * @return ResponseInterface
      */
     public function request($url, $method = 'GET', $options = [])
     {
@@ -220,10 +220,10 @@ class Http
         $response = $this->getClient()->request($method, $url, $options);
 
         Log::debug('API response:', [
-            'Status' => $response->getStatusCode(),
-            'Reason' => $response->getReasonPhrase(),
+            'Status'  => $response->getStatusCode(),
+            'Reason'  => $response->getReasonPhrase(),
             'Headers' => $response->getHeaders(),
-            'Body' => strval($response->getBody()),
+            'Body'    => strval($response->getBody()),
         ]);
 
         return $response;
@@ -232,9 +232,9 @@ class Http
     /**
      * @param \Psr\Http\Message\ResponseInterface|string $body
      *
-     * @return mixed
-     *
      * @throws \EntWeChat\Core\Exceptions\HttpException
+     *
+     * @return mixed
      */
     public function parseJSON($body)
     {
@@ -254,7 +254,7 @@ class Http
         Log::debug('API response decoded:', compact('contents'));
 
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new HttpException('Failed to parse JSON: ' . json_last_error_msg());
+            throw new HttpException('Failed to parse JSON: '.json_last_error_msg());
         }
 
         return $contents;

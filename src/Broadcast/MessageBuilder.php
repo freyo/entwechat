@@ -3,9 +3,9 @@
 namespace EntWeChat\Broadcast;
 
 use EntWeChat\Core\Exceptions\RuntimeException;
+use EntWeChat\Message\Raw as RawMessage;
 use EntWeChat\Message\Text;
 use EntWeChat\Support\Arr;
-use EntWeChat\Message\Raw as RawMessage;
 
 /**
  * Class MessageBuilder.
@@ -67,7 +67,7 @@ class MessageBuilder
         Broadcast::MSG_TYPE_VOICE,
         Broadcast::MSG_TYPE_CARD,
         Broadcast::MSG_TYPE_FILE,
-        Broadcast::MSG_TYPE_MPNEWS
+        Broadcast::MSG_TYPE_MPNEWS,
     ];
 
     /**
@@ -104,7 +104,6 @@ class MessageBuilder
      * @param $agentId
      *
      * @return MessageBuilder
-     *
      */
     public function by($agentId)
     {
@@ -152,7 +151,7 @@ class MessageBuilder
             $userIds = func_get_args();
         }
 
-        $userIds = Arr::where((array)$userIds, function ($key, $value) {
+        $userIds = Arr::where((array) $userIds, function ($key, $value) {
             return is_string($value) || is_numeric($value);
         });
 
@@ -174,7 +173,7 @@ class MessageBuilder
             $partyIds = func_get_args();
         }
 
-        $partyIds = Arr::where((array)$partyIds, function ($key, $value) {
+        $partyIds = Arr::where((array) $partyIds, function ($key, $value) {
             return is_numeric($value);
         });
 
@@ -196,7 +195,7 @@ class MessageBuilder
             $tagIds = func_get_args();
         }
 
-        $tagIds = Arr::where((array)$tagIds, function ($key, $value) {
+        $tagIds = Arr::where((array) $tagIds, function ($key, $value) {
             return is_numeric($value);
         });
 
@@ -220,9 +219,9 @@ class MessageBuilder
     /**
      * Send the message.
      *
-     * @return bool
-     *
      * @throws RuntimeException
+     *
+     * @return bool
      */
     public function send()
     {

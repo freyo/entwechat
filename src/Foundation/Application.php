@@ -103,7 +103,7 @@ class Application extends Container
 
         $keys = ['corp_id', 'secret'];
         foreach ($keys as $key) {
-            !$config->has($key) || $config[$key] = '***' . substr($config[$key], -5);
+            !$config->has($key) || $config[$key] = '***'.substr($config[$key], -5);
         }
 
         Log::debug('Current config:', $config->toArray());

@@ -18,7 +18,7 @@ class Temporary extends AbstractAPI
      */
     protected $allowTypes = ['image', 'voice', 'video', 'file'];
 
-    const API_GET    = 'https://qyapi.weixin.qq.com/cgi-bin/media/get';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/media/get';
     const API_UPLOAD = 'https://qyapi.weixin.qq.com/cgi-bin/media/upload';
 
     /**
@@ -28,9 +28,9 @@ class Temporary extends AbstractAPI
      * @param string $directory
      * @param string $filename
      *
-     * @return string
-     *
      * @throws InvalidArgumentException
+     *
+     * @return string
      */
     public function download($mediaId, $directory, $filename = '')
     {
@@ -44,7 +44,7 @@ class Temporary extends AbstractAPI
 
         $filename .= File::getStreamExt($stream);
 
-        file_put_contents($directory . '/' . $filename, $stream);
+        file_put_contents($directory.'/'.$filename, $stream);
 
         return $filename;
     }
@@ -54,9 +54,9 @@ class Temporary extends AbstractAPI
      *
      * @param string $mediaId
      *
-     * @return mixed
-     *
      * @throws \EntWeChat\Core\Exceptions\RuntimeException
+     *
+     * @return mixed
      */
     public function getStream($mediaId)
     {
@@ -71,9 +71,9 @@ class Temporary extends AbstractAPI
      * @param string $type
      * @param string $path
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     public function upload($type, $path)
     {
@@ -93,9 +93,9 @@ class Temporary extends AbstractAPI
      *
      * @param $path
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     public function uploadImage($path)
     {
@@ -107,9 +107,9 @@ class Temporary extends AbstractAPI
      *
      * @param $path
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     public function uploadVideo($path)
     {
@@ -121,9 +121,9 @@ class Temporary extends AbstractAPI
      *
      * @param $path
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     public function uploadVoice($path)
     {
@@ -135,9 +135,9 @@ class Temporary extends AbstractAPI
      *
      * @param $path
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\InvalidArgumentException
+     *
+     * @return string
      */
     public function uploadFile($path)
     {

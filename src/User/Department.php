@@ -9,7 +9,7 @@ use EntWeChat\Core\AbstractAPI;
  */
 class Department extends AbstractAPI
 {
-    const API_GET    = 'https://qyapi.weixin.qq.com/cgi-bin/department/list';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/department/list';
     const API_CREATE = 'https://qyapi.weixin.qq.com/cgi-bin/department/create';
     const API_UPDATE = 'https://qyapi.weixin.qq.com/cgi-bin/department/update';
     const API_DELETE = 'https://qyapi.weixin.qq.com/cgi-bin/department/delete';
@@ -27,10 +27,10 @@ class Department extends AbstractAPI
     public function create($name, $parentId, $order = null, $partyId = null)
     {
         $params = [
-            'name' => $name,
+            'name'     => $name,
             'parentid' => $parentId,
-            'order' => $order,
-            'id' => $partyId,
+            'order'    => $order,
+            'id'       => $partyId,
         ];
 
         return $this->parseJSON('json', [self::API_CREATE, $params]);

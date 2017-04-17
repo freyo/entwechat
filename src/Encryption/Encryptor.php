@@ -55,9 +55,9 @@ class Encryptor
             throw new RuntimeException("The ext 'openssl' is required.");
         }
 
-        $this->corpId    = $corpId;
-        $this->token     = $token;
-        $this->AESKey    = $AESKey;
+        $this->corpId = $corpId;
+        $this->token = $token;
+        $this->AESKey = $AESKey;
         $this->blockSize = 32;
     }
 
@@ -81,10 +81,10 @@ class Encryptor
         $signature = $this->getSHA1($this->token, $timestamp, $nonce, $encrypt);
 
         $response = [
-            'Encrypt' => $encrypt,
+            'Encrypt'      => $encrypt,
             'MsgSignature' => $signature,
-            'TimeStamp' => $timestamp,
-            'Nonce' => $nonce,
+            'TimeStamp'    => $timestamp,
+            'Nonce'        => $nonce,
         ];
 
         //生成响应xml
@@ -99,9 +99,9 @@ class Encryptor
      * @param string $timestamp
      * @param string $postXML
      *
-     * @return array
-     *
      * @throws EncryptionException
+     *
+     * @return array
      */
     public function decryptMsg($msgSignature, $nonce, $timestamp, $postXML)
     {
@@ -125,9 +125,9 @@ class Encryptor
     /**
      * Get SHA1.
      *
-     * @return string
-     *
      * @throws EncryptionException
+     *
+     * @return string
      */
     public function getSHA1()
     {
@@ -162,7 +162,7 @@ class Encryptor
             $tmp .= $padChr;
         }
 
-        return $text . $tmp;
+        return $text.$tmp;
     }
 
     /**
@@ -186,9 +186,9 @@ class Encryptor
     /**
      * Return AESKey.
      *
-     * @return string
-     *
      * @throws InvalidConfigException
+     *
+     * @return string
      */
     protected function getAESKey()
     {
@@ -200,7 +200,7 @@ class Encryptor
             throw new InvalidConfigException("The length of 'aes_key' must be 43.");
         }
 
-        return base64_decode($this->AESKey . '=', true);
+        return base64_decode($this->AESKey.'=', true);
     }
 
     /**
@@ -209,16 +209,16 @@ class Encryptor
      * @param string $text
      * @param string $corpId
      *
-     * @return string
-     *
      * @throws EncryptionException
+     *
+     * @return string
      */
     private function encrypt($text, $corpId)
     {
         try {
-            $key    = $this->getAESKey();
+            $key = $this->getAESKey();
             $random = $this->getRandomStr();
-            $text   = $this->encode($random . pack('N', strlen($text)) . $text . $corpId);
+            $text = $this->encode($random.pack('N', strlen($text)).$text.$corpId);
 
             $iv = substr($key, 0, 16);
 
@@ -236,16 +236,16 @@ class Encryptor
      * @param string $encrypted
      * @param string $corpId
      *
-     * @return string
-     *
      * @throws EncryptionException
+     *
+     * @return string
      */
     private function decrypt($encrypted, $corpId)
     {
         try {
-            $key        = $this->getAESKey();
+            $key = $this->getAESKey();
             $ciphertext = base64_decode($encrypted, true);
-            $iv         = substr($key, 0, 16);
+            $iv = substr($key, 0, 16);
 
             $decrypted = openssl_decrypt($ciphertext, 'aes-256-cbc', $key, OPENSSL_RAW_DATA | OPENSSL_NO_PADDING, $iv);
         } catch (BaseException $e) {
@@ -259,10 +259,10 @@ class Encryptor
                 return '';
             }
 
-            $content    = substr($result, 16, strlen($result));
-            $listLen    = unpack('N', substr($content, 0, 4));
-            $xmlLen     = $listLen[1];
-            $xml        = substr($content, 4, $xmlLen);
+            $content = substr($result, 16, strlen($result));
+            $listLen = unpack('N', substr($content, 0, 4));
+            $xmlLen = $listLen[1];
+            $xml = substr($content, 4, $xmlLen);
             $fromCorpId = trim(substr($content, $xmlLen + 4));
         } catch (BaseException $e) {
             throw new EncryptionException($e->getMessage(), EncryptionException::ERROR_INVALID_XML);

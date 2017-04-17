@@ -10,7 +10,7 @@ use EntWeChat\Core\AbstractAPI;
 class Menu extends AbstractAPI
 {
     const API_CREATE = 'https://qyapi.weixin.qq.com/cgi-bin/menu/create';
-    const API_GET    = 'https://qyapi.weixin.qq.com/cgi-bin/menu/get';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/menu/get';
     const API_DELETE = 'https://qyapi.weixin.qq.com/cgi-bin/menu/delete';
 
     /**

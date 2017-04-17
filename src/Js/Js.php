@@ -51,9 +51,9 @@ class Js extends AbstractAPI
     {
         $signPackage = $this->signature();
 
-        $base   = [
+        $base = [
             'debug' => $debug,
-            'beta' => $beta,
+            'beta'  => $beta,
         ];
         $config = array_merge($base, $signPackage, ['jsApiList' => $APIs]);
 
@@ -83,7 +83,7 @@ class Js extends AbstractAPI
      */
     public function ticket($forceRefresh = false)
     {
-        $key    = self::TICKET_CACHE_PREFIX . $this->getAccessToken()->getFingerprint();
+        $key = self::TICKET_CACHE_PREFIX.$this->getAccessToken()->getFingerprint();
         $ticket = $this->getCache()->fetch($key);
 
         if (!$forceRefresh && !empty($ticket)) {
@@ -108,16 +108,16 @@ class Js extends AbstractAPI
      */
     public function signature($url = null, $nonce = null, $timestamp = null)
     {
-        $url       = $url ? $url : $this->getUrl();
-        $nonce     = $nonce ? $nonce : Str::quickRandom(10);
+        $url = $url ? $url : $this->getUrl();
+        $nonce = $nonce ? $nonce : Str::quickRandom(10);
         $timestamp = $timestamp ? $timestamp : time();
-        $ticket    = $this->ticket();
+        $ticket = $this->ticket();
 
         $sign = [
-            'appId' => $this->getAccessToken()->getFingerprint(),
-            'nonceStr' => $nonce,
+            'appId'     => $this->getAccessToken()->getFingerprint(),
+            'nonceStr'  => $nonce,
             'timestamp' => $timestamp,
-            'url' => $url,
+            'url'       => $url,
             'signature' => $this->getSignature($ticket, $nonce, $timestamp, $url),
         ];
 

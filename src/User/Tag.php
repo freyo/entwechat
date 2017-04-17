@@ -9,13 +9,13 @@ use EntWeChat\Core\AbstractAPI;
  */
 class Tag extends AbstractAPI
 {
-    const API_GET                = 'https://qyapi.weixin.qq.com/cgi-bin/tag/list';
-    const API_CREATE             = 'https://qyapi.weixin.qq.com/cgi-bin/tag/create';
-    const API_UPDATE             = 'https://qyapi.weixin.qq.com/cgi-bin/tag/update';
-    const API_DELETE             = 'https://qyapi.weixin.qq.com/cgi-bin/tag/delete';
-    const API_MEMBER_BATCH_TAG   = 'https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/tag/list';
+    const API_CREATE = 'https://qyapi.weixin.qq.com/cgi-bin/tag/create';
+    const API_UPDATE = 'https://qyapi.weixin.qq.com/cgi-bin/tag/update';
+    const API_DELETE = 'https://qyapi.weixin.qq.com/cgi-bin/tag/delete';
+    const API_MEMBER_BATCH_TAG = 'https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers';
     const API_MEMBER_BATCH_UNTAG = 'https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers';
-    const API_USERS_OF_TAG       = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get';
+    const API_USERS_OF_TAG = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get';
 
     /**
      * Create tag.
@@ -29,7 +29,7 @@ class Tag extends AbstractAPI
     {
         $params = [
             'tagname' => $name,
-            'tagid' => $tagId,
+            'tagid'   => $tagId,
         ];
 
         return $this->parseJSON('json', [self::API_CREATE, $params]);
@@ -56,7 +56,7 @@ class Tag extends AbstractAPI
     public function update($tagId, $name)
     {
         $params = [
-            'tagid' => $tagId,
+            'tagid'   => $tagId,
             'tagname' => $name,
         ];
 
@@ -105,8 +105,8 @@ class Tag extends AbstractAPI
     public function batchTagUsers($tagId, array $userIds = [], array $partyIds = [])
     {
         $params = [
-            'tagid' => $tagId,
-            'userlist' => $userIds,
+            'tagid'     => $tagId,
+            'userlist'  => $userIds,
             'partylist' => $partyIds,
         ];
 
@@ -125,8 +125,8 @@ class Tag extends AbstractAPI
     public function batchUntagUsers($tagId, array $userIds = [], array $partyIds = [])
     {
         $params = [
-            'tagid' => $tagId,
-            'userlist' => $userIds,
+            'tagid'     => $tagId,
+            'userlist'  => $userIds,
             'partylist' => $partyIds,
         ];
 

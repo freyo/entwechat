@@ -81,7 +81,7 @@ class AccessToken
     {
         $this->corpId = $corpId;
         $this->secret = $secret;
-        $this->cache  = $cache;
+        $this->cache = $cache;
     }
 
     /**
@@ -94,7 +94,7 @@ class AccessToken
     public function getToken($forceRefresh = false)
     {
         $cacheKey = $this->getCacheKey();
-        $cached   = $this->getCache()->fetch($cacheKey);
+        $cached = $this->getCache()->fetch($cacheKey);
 
         if ($forceRefresh || empty($cached)) {
             $token = $this->getTokenFromServer();
@@ -150,7 +150,7 @@ class AccessToken
      */
     public function getFingerprint()
     {
-        return sha1($this->corpId . '|' . $this->secret);
+        return sha1($this->corpId.'|'.$this->secret);
     }
 
     /**
@@ -221,7 +221,7 @@ class AccessToken
     public function getTokenFromServer()
     {
         $params = [
-            'corpid' => $this->corpId,
+            'corpid'     => $this->corpId,
             'corpsecret' => $this->secret,
         ];
 
@@ -230,7 +230,7 @@ class AccessToken
         $token = $http->parseJSON($http->get(self::API_TOKEN_GET, $params));
 
         if (empty($token[$this->tokenJsonKey])) {
-            throw new HttpException('Request AccessToken fail. response: ' . json_encode($token, JSON_UNESCAPED_UNICODE));
+            throw new HttpException('Request AccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
         }
 
         return $token;
@@ -296,7 +296,7 @@ class AccessToken
     public function getCacheKey()
     {
         if (is_null($this->cacheKey)) {
-            return $this->prefix . $this->corpId;
+            return $this->prefix.$this->corpId;
         }
 
         return $this->cacheKey;

@@ -9,22 +9,22 @@ use EntWeChat\Core\AbstractAPI;
  */
 class Chat extends AbstractAPI
 {
-    const API_GET          = 'https://qyapi.weixin.qq.com/cgi-bin/chat/get';
-    const API_CREATE       = 'https://qyapi.weixin.qq.com/cgi-bin/chat/create';
-    const API_UPDATE       = 'https://qyapi.weixin.qq.com/cgi-bin/chat/update';
-    const API_QUIT         = 'https://qyapi.weixin.qq.com/cgi-bin/chat/quit';
+    const API_GET = 'https://qyapi.weixin.qq.com/cgi-bin/chat/get';
+    const API_CREATE = 'https://qyapi.weixin.qq.com/cgi-bin/chat/create';
+    const API_UPDATE = 'https://qyapi.weixin.qq.com/cgi-bin/chat/update';
+    const API_QUIT = 'https://qyapi.weixin.qq.com/cgi-bin/chat/quit';
     const API_CLEAR_NOTIFY = 'https://qyapi.weixin.qq.com/cgi-bin/chat/clearnotify';
-    const API_SEND         = 'https://qyapi.weixin.qq.com/cgi-bin/chat/send';
-    const API_SET_MUTE     = 'https://qyapi.weixin.qq.com/cgi-bin/chat/setmute';
+    const API_SEND = 'https://qyapi.weixin.qq.com/cgi-bin/chat/send';
+    const API_SET_MUTE = 'https://qyapi.weixin.qq.com/cgi-bin/chat/setmute';
 
     const CHAT_TYPE_SINGLE = 'single';  // 单聊
-    const CHAT_TYPE_GROUP  = 'group';   // 群聊
+    const CHAT_TYPE_GROUP = 'group';   // 群聊
 
-    const MSG_TYPE_TEXT  = 'text';   // 文本
+    const MSG_TYPE_TEXT = 'text';   // 文本
     const MSG_TYPE_VOICE = 'voice';  // 语音
     const MSG_TYPE_IMAGE = 'image';  // 图片
-    const MSG_TYPE_FILE  = 'file';   // 文件
-    const MSG_TYPE_LINK  = 'link';   // 文件
+    const MSG_TYPE_FILE = 'file';   // 文件
+    const MSG_TYPE_LINK = 'link';   // 文件
 
     /**
      * Fetch a chat by chat id.
@@ -55,9 +55,9 @@ class Chat extends AbstractAPI
     public function create($chatId, $name, $owner, array $userList)
     {
         $params = [
-            'chatid' => $chatId,
-            'name' => $name,
-            'owner' => $owner,
+            'chatid'   => $chatId,
+            'name'     => $name,
+            'owner'    => $owner,
             'userlist' => $userList,
         ];
 
@@ -76,7 +76,7 @@ class Chat extends AbstractAPI
     public function update($chatId, $opUser, array $chatInfo = [])
     {
         $params = array_merge($chatInfo, [
-            'chatid' => $chatId,
+            'chatid'  => $chatId,
             'op_user' => $opUser,
         ]);
 
@@ -94,7 +94,7 @@ class Chat extends AbstractAPI
     public function quit($chatId, $opUser)
     {
         $params = [
-            'chatid' => $chatId,
+            'chatid'  => $chatId,
             'op_user' => $opUser,
         ];
 
@@ -113,7 +113,7 @@ class Chat extends AbstractAPI
     {
         $params = [
             'chatid' => $chatId,
-            'chat' => $chat,
+            'chat'   => $chat,
         ];
 
         return $this->parseJSON('json', [self::API_CLEAR_NOTIFY, $params]);
@@ -135,10 +135,10 @@ class Chat extends AbstractAPI
         $content = (new Transformer($msgType, $message))->transform();
 
         $params = array_merge([
-            'receiver' => array(
+            'receiver' => [
                 'type' => $type,
-                'id' => $id
-            ),
+                'id'   => $id,
+            ],
             'sender' => $sender,
         ], $content);
 

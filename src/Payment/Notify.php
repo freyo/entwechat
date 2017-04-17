@@ -42,7 +42,7 @@ class Notify
     public function __construct(Merchant $merchant, Request $request = null)
     {
         $this->merchant = $merchant;
-        $this->request  = $request ?: Request::createFromGlobals();
+        $this->request = $request ?: Request::createFromGlobals();
     }
 
     /**
@@ -60,9 +60,9 @@ class Notify
     /**
      * Return the notify body from request.
      *
-     * @return \EntWeChat\Support\Collection
-     *
      * @throws \EntWeChat\Core\Exceptions\FaultException
+     *
+     * @return \EntWeChat\Support\Collection
      */
     public function getNotify()
     {
@@ -72,9 +72,9 @@ class Notify
         try {
             $xml = XML::parse(strval($this->request->getContent()));
         } catch (\Throwable $t) {
-            throw new FaultException('Invalid request XML: ' . $t->getMessage(), 400);
+            throw new FaultException('Invalid request XML: '.$t->getMessage(), 400);
         } catch (\Exception $e) {
-            throw new FaultException('Invalid request XML: ' . $e->getMessage(), 400);
+            throw new FaultException('Invalid request XML: '.$e->getMessage(), 400);
         }
 
         if (!is_array($xml) || empty($xml)) {

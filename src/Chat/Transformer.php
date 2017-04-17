@@ -2,8 +2,6 @@
 
 namespace EntWeChat\Chat;
 
-use EntWeChat\Core\Exceptions\InvalidArgumentException;
-
 /**
  * Class Transformer.
  */
@@ -127,9 +125,9 @@ class Transformer
     {
         return [
             'link' => [
-                'title' => $message[0],
+                'title'       => $message[0],
                 'description' => $message[1],
-                'url' => $message[2],
+                'url'         => $message[2],
             ],
             'msgtype' => 'link',
         ];

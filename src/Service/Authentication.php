@@ -12,7 +12,7 @@ class Authentication extends AbstractService
     const LOGIN_URL = 'https://qy.weixin.qq.com/cgi-bin/loginpage';
 
     const API_GET_LOGIN_INFO = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info';
-    const API_GET_SSO_URL    = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url';
+    const API_GET_SSO_URL = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url';
 
     /**
      * Indicates if the session state should be utilized.
@@ -34,8 +34,8 @@ class Authentication extends AbstractService
     {
         $params = [
             'login_ticket' => $loginTicket,
-            'target' => $target,
-            'agentid' => $agentId,
+            'target'       => $target,
+            'agentid'      => $agentId,
         ];
 
         return $this->parseJSON('json', [self::API_GET_SSO_URL, $params]);
@@ -44,8 +44,9 @@ class Authentication extends AbstractService
     /**
      * @param string|null $authCode
      *
-     * @return \EntWeChat\Support\Collection
      * @throws InvalidStateException
+     *
+     * @return \EntWeChat\Support\Collection
      */
     public function user($authCode = null)
     {
@@ -66,13 +67,13 @@ class Authentication extends AbstractService
     protected function getAuthUrl($state = null)
     {
         $params = array_merge([
-            'corp_id' => $this->clientId,
+            'corp_id'      => $this->clientId,
             'redirect_uri' => $this->redirectUrl,
-            'state' => $state ?: md5(time()),
+            'state'        => $state ?: md5(time()),
         ], ['usertype' => 'admin'], $this->parameters);
 
         $query = http_build_query($params, '', '&', $this->encodingType);
 
-        return self::LOGIN_URL . '?' . $query;
+        return self::LOGIN_URL.'?'.$query;
     }
 }

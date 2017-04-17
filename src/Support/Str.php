@@ -67,9 +67,9 @@ class Str
      *
      * @param int $length
      *
-     * @return string
-     *
      * @throws \RuntimeException
+     *
+     * @return string
      */
     public static function random($length = 16)
     {
@@ -91,9 +91,9 @@ class Str
      *
      * @param int $length
      *
-     * @return string
-     *
      * @throws RuntimeException
+     *
+     * @return string
      */
     public static function randomBytes($length = 16)
     {
@@ -161,14 +161,14 @@ class Str
      */
     public static function snake($value, $delimiter = '_')
     {
-        $key = $value . $delimiter;
+        $key = $value.$delimiter;
 
         if (isset(static::$snakeCache[$key])) {
             return static::$snakeCache[$key];
         }
 
         if (!ctype_lower($value)) {
-            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1' . $delimiter, $value));
+            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1'.$delimiter, $value));
         }
 
         return static::$snakeCache[$key] = $value;

@@ -75,7 +75,7 @@ class Contact extends AbstractAPI
      */
     public function ticket($forceRefresh = false)
     {
-        $key    = self::GROUP_TICKET_CACHE_PREFIX . $this->getAccessToken()->getFingerprint();
+        $key = self::GROUP_TICKET_CACHE_PREFIX.$this->getAccessToken()->getFingerprint();
         $ticket = $this->getCache()->fetch($key);
 
         if (!$forceRefresh && !empty($ticket)) {
@@ -100,14 +100,14 @@ class Contact extends AbstractAPI
      */
     public function signature($url = null, $nonce = null, $timestamp = null)
     {
-        $url       = $url ? $url : $this->getUrl();
-        $nonce     = $nonce ? $nonce : Str::quickRandom(10);
+        $url = $url ? $url : $this->getUrl();
+        $nonce = $nonce ? $nonce : Str::quickRandom(10);
         $timestamp = $timestamp ? $timestamp : time();
-        $ticket    = $this->ticket();
+        $ticket = $this->ticket();
 
         $sign = [
-            'groupId' => $ticket['group_id'],
-            'nonceStr' => $nonce,
+            'groupId'   => $ticket['group_id'],
+            'nonceStr'  => $nonce,
             'timestamp' => $timestamp,
             'signature' => $this->getSignature($ticket['ticket'], $nonce, $timestamp, $url),
         ];
