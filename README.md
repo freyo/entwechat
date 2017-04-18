@@ -36,14 +36,27 @@ $app = new Application($options);
 
 //微信端网页授权
 $app->oauth->setRedirectUrl('http://example.org')
+           ->scopes(['snsapi_base'])
            ->redirect()
            ->send();
+//获取授权用户信息
+$user = $app->oauth->user();
+//$user->UserId //企业成员授权时
+//$user->DeviceId
+//$user->OpenId //非企业成员授权时
 
 //PC端扫码登录
 $app->auth->with(['usertype' => 'member'])
           ->setRedirectUrl('http://example.org')
           ->redirect()
           ->send();
+//获取登录用户信息
+$user = $app->auth->user();
+//登录用户为企业号成员时
+//$user->usertype
+//$user->user_info['userid'] //name,email,avatar
+//$user->redirect_login_info['login_ticket']
+//$user->corp_info['corpid']
 
 //通过userid获取用户信息
 $app->user->get('userid');
@@ -79,7 +92,7 @@ $app->broadcast->message($news) //发送给指定用户、部门、标签
                ->toUser('userid1', 'userid2')
                ->toParty($deptId)
                ->toTag($tagId)
-               ->send(); 
+               ->send();
 
 //服务端回调
 $server = $app->server;
@@ -87,7 +100,7 @@ $user = $app->user;
 
 $server->setMessageHandler(function($message) use ($user) {
     // $message->FromUserName // 用户的 openid
-    // $message->MsgType // 消息类型：event, text....    
+    // $message->MsgType // 消息类型：event, text....
     $fromUser = $user->get($message->FromUserName);
     return "{$fromUser->nickname} 您好！欢迎关注！";
 });
