@@ -103,7 +103,7 @@ class Application extends Container
      */
     public function account($account)
     {
-        if (isset($this['config']['account'][$account])) {
+        if (!isset($this['config']['account'][$account])) {
             throw new InvalidConfigException('This account not exist');
         }
 
