@@ -5,6 +5,7 @@ namespace EntWeChat\Foundation;
 use Doctrine\Common\Cache\Cache as CacheInterface;
 use Doctrine\Common\Cache\FilesystemCache;
 use EntWeChat\Core\AccessToken;
+use EntWeChat\Core\Exceptions\InvalidConfigException;
 use EntWeChat\Core\Http;
 use EntWeChat\Support\Log;
 use Monolog\Handler\HandlerInterface;
@@ -93,6 +94,25 @@ class Application extends Container
     }
 
     /**
+     * Load account.
+     *
+     * @param string $account
+     *
+     * @return Application
+     * @throws InvalidConfigException
+     */
+    public function account($account)
+    {
+        if (isset($this['config']['account'][$account])) {
+            throw new InvalidConfigException('This account not exist');
+        }
+
+        $this['config']->merge($this['config']['account'][$account]);
+
+        return $this;
+    }
+
+    /**
      * Log configuration.
      *
      * @param array $config
@@ -100,6 +120,10 @@ class Application extends Container
     public function logConfiguration($config)
     {
         $config = new Config($config);
+
+        if ($config->has('account')) {
+            $config->forget('account');
+        }
 
         $keys = ['corp_id', 'secret'];
         foreach ($keys as $key) {
