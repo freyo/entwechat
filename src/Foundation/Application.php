@@ -98,8 +98,9 @@ class Application extends Container
      *
      * @param string $account
      *
-     * @return Application
      * @throws InvalidConfigException
+     *
+     * @return Application
      */
     public function account($account)
     {
