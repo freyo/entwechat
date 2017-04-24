@@ -1,4 +1,12 @@
 # EntWeChat
+
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Build Status](https://img.shields.io/travis/freyo/entwechat/master.svg?style=flat-square)](https://travis-ci.org/freyo/entwechat)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/freyo/entwechat.svg?style=flat-square)](https://scrutinizer-ci.com/g/freyo/entwechat)
+[![Quality Score](https://img.shields.io/scrutinizer/g/freyo/entwechat.svg?style=flat-square)](https://scrutinizer-ci.com/g/freyo/entwechat)
+[![Packagist Version](https://img.shields.io/packagist/v/freyo/entwechat.svg?style=flat-square)](https://packagist.org/packages/freyo/entwechat)
+[![Total Downloads](https://img.shields.io/packagist/dt/freyo/entwechat.svg?style=flat-square)](https://packagist.org/packages/freyo/entwechat)
+
 WeChat Enterprise SDK based on **[EasyWeChat 3.X](https://github.com/overtrue/wechat)**
 
 ## Requirement
