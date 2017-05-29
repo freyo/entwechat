@@ -76,7 +76,7 @@ class User extends AbstractAPI
     }
 
     /**
-     * Create user.
+     * Create a user.
      *
      * @param array $userInfo
      *
@@ -90,7 +90,7 @@ class User extends AbstractAPI
     }
 
     /**
-     * Create user.
+     * Update a user.
      *
      * @param string $userId
      * @param array  $userInfo
@@ -105,7 +105,7 @@ class User extends AbstractAPI
     }
 
     /**
-     * Create user.
+     * Delete a user.
      *
      * @param string $userId
      *

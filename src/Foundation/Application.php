@@ -42,6 +42,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @property \EntWeChat\Auth\App                        $oauth
  * @property \EntWeChat\Auth\Web                        $auth
  * @property \EntWeChat\Staff\Staff                     $staff
+ * @property \EntWeChat\Suite\Suite                     $suite
  */
 class Application extends Container
 {
@@ -65,6 +66,7 @@ class Application extends Container
         ServiceProviders\PaymentServiceProvider::class,
         ServiceProviders\ShakeAroundServiceProvider::class,
         ServiceProviders\StaffServiceProvider::class,
+        ServiceProviders\SuiteServiceProvider::class,
     ];
 
     /**
@@ -126,7 +128,7 @@ class Application extends Container
             $config->forget('account');
         }
 
-        $keys = ['corp_id', 'secret'];
+        $keys = ['corp_id', 'secret', 'suite.suite_id', 'suite.secret'];
         foreach ($keys as $key) {
             !$config->has($key) || $config[$key] = '***'.substr($config[$key], -5);
         }

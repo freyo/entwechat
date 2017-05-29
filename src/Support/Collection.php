@@ -1,4 +1,5 @@
 <?php
+
 namespace EntWeChat\Support;
 
 use ArrayAccess;

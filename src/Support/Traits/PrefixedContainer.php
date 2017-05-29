@@ -1,4 +1,5 @@
 <?php
+
 namespace EntWeChat\Support\Traits;
 
 use EntWeChat\Support\Str;
@@ -56,7 +57,7 @@ trait PrefixedContainer
     {
         $className = basename(str_replace('\\', '/', static::class));
 
-        $name = Str::snake($className).'.'.$key;
+        $name = Str::snake($className) . '.' . $key;
 
         return $this->container->offsetGet($name);
     }

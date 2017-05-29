@@ -1,4 +1,5 @@
 <?php
+
 namespace EntWeChat\Support;
 
 use EntWeChat\Core\Exceptions\RuntimeException;
@@ -141,14 +142,14 @@ class Str
      */
     public static function snake($value, $delimiter = '_')
     {
-        $key = $value.$delimiter;
+        $key = $value . $delimiter;
 
         if (isset(static::$snakeCache[$key])) {
             return static::$snakeCache[$key];
         }
 
         if (!ctype_lower($value)) {
-            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1'.$delimiter, $value));
+            $value = strtolower(preg_replace('/(.)(?=[A-Z])/', '$1' . $delimiter, $value));
         }
 
         return static::$snakeCache[$key] = $value;
