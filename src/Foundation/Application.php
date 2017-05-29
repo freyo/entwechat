@@ -39,8 +39,8 @@ use Symfony\Component\HttpFoundation\Request;
  * @property \EntWeChat\Payment\LuckyMoney\LuckyMoney   $lucky_money
  * @property \EntWeChat\Payment\MerchantPay\MerchantPay $merchant_pay
  * @property \EntWeChat\Payment\CashCoupon\CashCoupon   $cash_coupon
- * @property \EntWeChat\Service\Oauth                   $oauth
- * @property \EntWeChat\Service\Authentication          $auth
+ * @property \EntWeChat\Auth\App                        $oauth
+ * @property \EntWeChat\Auth\Web                        $auth
  * @property \EntWeChat\Staff\Staff                     $staff
  */
 class Application extends Container

@@ -1,18 +1,18 @@
 <?php
 
-namespace EntWeChat\Service;
+namespace EntWeChat\Auth;
 
 use EntWeChat\Core\Exceptions\InvalidStateException;
 
 /**
- * Class Authentication.
+ * Class Web.
  */
-class Authentication extends AbstractService
+class Web extends AbstractAuthentication
 {
-    const LOGIN_URL = 'https://qy.weixin.qq.com/cgi-bin/loginpage';
+    const AUTH_URL = 'https://qy.weixin.qq.com/cgi-bin/loginpage';
 
     const API_GET_LOGIN_INFO = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_info';
-    const API_GET_SSO_URL = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url';
+    const API_GET_LOGIN_URL = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_login_url';
 
     /**
      * Indicates if the session state should be utilized.
@@ -32,13 +32,27 @@ class Authentication extends AbstractService
      */
     public function getSSOUrl($loginTicket, $target, $agentId = null)
     {
+        return $this->getLoginUrl($loginTicket, $target, $agentId);
+    }
+
+    /**
+     * Get the Login URL.
+     *
+     * @param string   $loginTicket
+     * @param string   $target
+     * @param int|null $agentId
+     *
+     * @return \EntWeChat\Support\Collection
+     */
+    public function getLoginUrl($loginTicket, $target, $agentId = null)
+    {
         $params = [
             'login_ticket' => $loginTicket,
             'target'       => $target,
             'agentid'      => $agentId,
         ];
 
-        return $this->parseJSON('json', [self::API_GET_SSO_URL, $params]);
+        return $this->parseJSON('json', [self::API_GET_LOGIN_URL, $params]);
     }
 
     /**
@@ -74,6 +88,6 @@ class Authentication extends AbstractService
 
         $query = http_build_query($params, '', '&', $this->encodingType);
 
-        return self::LOGIN_URL.'?'.$query;
+        return self::AUTH_URL.'?'.$query;
     }
 }

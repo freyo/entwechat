@@ -1,6 +1,6 @@
 <?php
 
-namespace EntWeChat\Service;
+namespace EntWeChat\Auth;
 
 use EntWeChat\Core\AbstractAPI;
 use EntWeChat\Core\AccessToken;
@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractService.
+ * Class AbstractAuthentication.
  */
-abstract class AbstractService extends AbstractAPI
+abstract class AbstractAuthentication extends AbstractAPI
 {
     /**
      * The HTTP request instance.
