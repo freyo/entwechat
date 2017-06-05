@@ -27,12 +27,12 @@ class AuthorizerAccessToken extends BaseAccessToken
     /**
      * AuthorizerAccessToken constructor.
      *
-     * @param string                         $appId
+     * @param string                         $corpId
      * @param \EntWeChat\Suite\Authorization $authorization
      */
-    public function __construct($appId, Authorization $authorization)
+    public function __construct($corpId, Authorization $authorization)
     {
-        parent::__construct($appId, null);
+        parent::__construct($corpId, null);
 
         $this->authorization = $authorization;
     }
@@ -64,8 +64,8 @@ class AuthorizerAccessToken extends BaseAccessToken
     {
         $token = $this->authorization->getApi()
                                      ->getAuthorizerToken(
-                                         $this->authorization->getAuthorizerAppId(),
-                                         $this->authorization->getAuthorizerRefreshToken()
+                                         $this->authorization->getAuthorizerCorpId(),
+                                         $this->authorization->getAuthorizerPermanentCode()
                                      );
 
         $this->authorization->setAuthorizerAccessToken($token['access_token'], $token['expires_in'] - 1500);
@@ -74,12 +74,12 @@ class AuthorizerAccessToken extends BaseAccessToken
     }
 
     /**
-     * Return the AuthorizerAppId.
+     * Return the AuthorizerCorpId.
      *
      * @return string
      */
-    public function getAppId()
+    public function getCorpId()
     {
-        return $this->authorization->getAuthorizerAppId();
+        return $this->authorization->getAuthorizerCorpId();
     }
 }

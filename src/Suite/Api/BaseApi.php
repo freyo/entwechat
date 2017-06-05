@@ -30,16 +30,16 @@ class BaseApi extends AbstractSuite
     const GET_PROVIDER_TOKEN = 'https://qyapi.weixin.qq.com/cgi-bin/service/get_provider_token';
 
     /**
-     * @param $authCorpId
+     * @param $authorizerCorpId
      * @param $permanentCode
      *
      * @return \EntWeChat\Support\Collection
      */
-    public function getAuthorizerInfo($authCorpId, $permanentCode)
+    public function getAuthorizerInfo($authorizerCorpId, $permanentCode)
     {
         $params = [
             'suite_id'       => $this->getSuiteId(),
-            'auth_corpid'    => $authCorpId,
+            'auth_corpid'    => $authorizerCorpId,
             'permanent_code' => $permanentCode,
         ];
 
@@ -78,16 +78,16 @@ class BaseApi extends AbstractSuite
     }
 
     /**
-     * @param $authCorpId
+     * @param $authorizerCorpId
      * @param $permanentCode
      *
      * @return \EntWeChat\Support\Collection
      */
-    public function getAuthorizerToken($authCorpId, $permanentCode)
+    public function getAuthorizerToken($authorizerCorpId, $permanentCode)
     {
         $params = [
             'suite_id'       => $this->getSuiteId(),
-            'auth_corpid'    => $authCorpId,
+            'auth_corpid'    => $authorizerCorpId,
             'permanent_code' => $permanentCode,
         ];
 
@@ -95,15 +95,15 @@ class BaseApi extends AbstractSuite
     }
 
     /**
-     * @param $corpId
+     * @param $providerCorpId
      * @param $providerSecret
      *
      * @return \EntWeChat\Support\Collection
      */
-    public function getProviderToken($corpId, $providerSecret)
+    public function getProviderToken($providerCorpId, $providerSecret)
     {
         $params = [
-            'corpid'          => $corpId,
+            'corpid'          => $providerCorpId,
             'provider_secret' => $providerSecret,
         ];
 

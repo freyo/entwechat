@@ -9,7 +9,7 @@ use EntWeChat\Suite\Api\BaseApi;
 class Authorization
 {
     const CACHE_KEY_ACCESS_TOKEN  = 'EntWeChat.suite.authorizer_access_token';
-    const CACHE_KEY_REFRESH_TOKEN = 'EntWeChat.suite.authorizer_refresh_token';
+    const CACHE_KEY_PERMANENT_CODE = 'EntWeChat.suite.authorizer_permanent_code';
 
     /**
      * Cache.
@@ -26,30 +26,30 @@ class Authorization
     protected $api;
 
     /**
-     * Open Platform App Id, aka, Component App Id.
+     * Suite Id.
      *
      * @var string
      */
-    protected $appId;
+    protected $suiteId;
 
     /**
-     * Authorizer App Id.
+     * Authorizer Corp Id.
      *
      * @var string
      */
-    protected $authorizerAppId;
+    protected $authorizerCorpId;
 
     /**
      * Authorization Constructor.
      *
      * @param \EntWeChat\Suite\Api\BaseApi $api
-     * @param string                       $appId
+     * @param string                       $suiteId
      * @param \Doctrine\Common\Cache\Cache $cache
      */
-    public function __construct(BaseApi $api, $appId, Cache $cache)
+    public function __construct(BaseApi $api, $suiteId, Cache $cache)
     {
         $this->api   = $api;
-        $this->appId = $appId;
+        $this->suiteId = $suiteId;
         $this->cache = $cache;
     }
 
@@ -82,37 +82,37 @@ class Authorization
      */
     public function getAuthorizerAccessTokenKey()
     {
-        return self::CACHE_KEY_ACCESS_TOKEN . $this->appId . $this->getAuthorizerAppId();
+        return self::CACHE_KEY_ACCESS_TOKEN . $this->suiteId . $this->getAuthorizerCorpId();
     }
 
     /**
-     * Gets the authorizer app id, or throws if not found.
+     * Gets the authorizer corp id, or throws if not found.
      *
      * @return string
      *
      * @throws \EntWeChat\Core\Exception
      */
-    public function getAuthorizerAppId()
+    public function getAuthorizerCorpId()
     {
-        if (!$this->authorizerAppId) {
+        if (!$this->authorizerCorpId) {
             throw new Exception(
-                'Authorizer App Id is not present, you may not make the authorization yet.'
+                'Authorizer Corp Id is not present, you may not make the authorization yet.'
             );
         }
 
-        return $this->authorizerAppId;
+        return $this->authorizerCorpId;
     }
 
     /**
-     * Sets the authorizer app id.
+     * Sets the authorizer corp id.
      *
-     * @param string $authorizerAppId
+     * @param string $authorizerCorpId
      *
      * @return $this
      */
-    public function setAuthorizerAppId($authorizerAppId)
+    public function setAuthorizerCorpId($authorizerCorpId)
     {
-        $this->authorizerAppId = $authorizerAppId;
+        $this->authorizerCorpId = $authorizerCorpId;
 
         return $this;
     }
@@ -130,13 +130,13 @@ class Authorization
     /**
      * Saves the authorizer refresh token in cache.
      *
-     * @param string $refreshToken
+     * @param string $permanentCode
      *
      * @return bool TRUE if the entry was successfully stored in the cache, FALSE otherwise
      */
-    public function setAuthorizerRefreshToken($refreshToken)
+    public function setAuthorizerPermanentCode($permanentCode)
     {
-        return $this->cache->save($this->getAuthorizerRefreshTokenKey(), $refreshToken);
+        return $this->cache->save($this->getAuthorizerPermanentCodeKey(), $permanentCode);
     }
 
     /**
@@ -144,9 +144,9 @@ class Authorization
      *
      * @return string
      */
-    public function getAuthorizerRefreshTokenKey()
+    public function getAuthorizerPermanentCodeKey()
     {
-        return self::CACHE_KEY_REFRESH_TOKEN . $this->appId . $this->getAuthorizerAppId();
+        return self::CACHE_KEY_PERMANENT_CODE . $this->suiteId . $this->getAuthorizerCorpId();
     }
 
     /**
@@ -156,14 +156,14 @@ class Authorization
      *
      * @throws \EntWeChat\Core\Exception when refresh token is not present
      */
-    public function getAuthorizerRefreshToken()
+    public function getAuthorizerPermanentCode()
     {
-        if ($token = $this->cache->fetch($this->getAuthorizerRefreshTokenKey())) {
-            return $token;
+        if ($permanentCode = $this->cache->fetch($this->getAuthorizerPermanentCodeKey())) {
+            return $permanentCode;
         }
 
         throw new Exception(
-            'Authorizer Refresh Token is not present, you may not make the authorization yet.'
+            'Authorizer Permanent Code is not present, you may not make the authorization yet.'
         );
     }
 
@@ -184,8 +184,8 @@ class Authorization
      * @return bool TRUE if the cache entry was successfully deleted, FALSE otherwise.
      *              Deleting a non-existing entry is considered successful
      */
-    public function removeAuthorizerRefreshToken()
+    public function removeAuthorizerPermanentCode()
     {
-        return $this->cache->delete($this->getAuthorizerRefreshTokenKey());
+        return $this->cache->delete($this->getAuthorizerPermanentCodeKey());
     }
 }

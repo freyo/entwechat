@@ -13,9 +13,8 @@ use EntWeChat\Support\Traits\PrefixedContainer;
  * @property \EntWeChat\Suite\AccessToken          $access_token
  *
  * @method \EntWeChat\Support\Collection getAuthorizationInfo($authCode = null)
- * @method \EntWeChat\Support\Collection getAuthorizerInfo($authorizerAppId)
- * @method \EntWeChat\Support\Collection getAuthorizerOption($authorizerAppId, $optionName)
- * @method \EntWeChat\Support\Collection setAuthorizerOption($authorizerAppId, $optionName, $optionValue)
+ * @method \EntWeChat\Support\Collection getAuthorizerInfo($authorizerCorpId, $permanentCode)
+ * @method \EntWeChat\Support\Collection setAuthorizerOption($preAuthCode, $sessionInfo)
  */
 class Suite
 {
@@ -24,16 +23,16 @@ class Suite
     /**
      * Create an instance of the EntWeChat for the given authorizer.
      *
-     * @param string $appId        Authorizer AppId
-     * @param string $refreshToken Authorizer refresh-token
+     * @param string $corpId        Authorizer CorpId
+     * @param string $permanentCode Authorizer permanent-code
      *
      * @return \EntWeChat\Foundation\Application
      */
-    public function createAuthorizerApplication($appId, $refreshToken)
+    public function createAuthorizerApplication($authorizerCorpId, $permanentCode)
     {
         $this->fetch('authorization')
-             ->setAuthorizerAppId($appId)
-             ->setAuthorizerRefreshToken($refreshToken);
+             ->setAuthorizerCorpId($authorizerCorpId)
+             ->setAuthorizerPermanentCode($permanentCode);
 
         $application                 = $this->fetch('app');
         $application['access_token'] = $this->fetch('authorizer_access_token');
