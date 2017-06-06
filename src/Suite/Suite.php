@@ -34,9 +34,9 @@ class Suite
              ->setAuthorizerCorpId($authorizerCorpId)
              ->setAuthorizerPermanentCode($permanentCode);
 
-        $application                 = $this->fetch('app');
+        $application = $this->fetch('app');
         $application['access_token'] = $this->fetch('authorizer_access_token');
-        $application['oauth']        = $this->fetch('oauth');
+        $application['oauth'] = $this->fetch('oauth');
 
         return $application;
     }

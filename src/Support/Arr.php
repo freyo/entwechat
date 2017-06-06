@@ -76,9 +76,9 @@ class Arr
 
         foreach ($array as $key => $value) {
             if (is_array($value)) {
-                $results = array_merge($results, static::dot($value, $prepend . $key . '.'));
+                $results = array_merge($results, static::dot($value, $prepend.$key.'.'));
             } else {
-                $results[$prepend . $key] = $value;
+                $results[$prepend.$key] = $value;
             }
         }
 
@@ -95,7 +95,7 @@ class Arr
      */
     public static function except($array, $keys)
     {
-        return array_diff_key($array, array_flip((array)$keys));
+        return array_diff_key($array, array_flip((array) $keys));
     }
 
     /**
@@ -113,7 +113,7 @@ class Arr
         foreach (explode('.', $key) as $segment) {
             $results = [];
             foreach ($array as $value) {
-                $value     = (array)$value;
+                $value = (array) $value;
                 $results[] = $value[$segment];
             }
             $array = array_values($results);
@@ -186,7 +186,7 @@ class Arr
     {
         $original = &$array;
 
-        foreach ((array)$keys as $key) {
+        foreach ((array) $keys as $key) {
             $parts = explode('.', $key);
             while (count($parts) > 1) {
                 $part = array_shift($parts);
@@ -239,7 +239,7 @@ class Arr
      */
     public static function only($array, $keys)
     {
-        return array_intersect_key($array, array_flip((array)$keys));
+        return array_intersect_key($array, array_flip((array) $keys));
     }
 
     /**
@@ -263,7 +263,7 @@ class Arr
             if (is_null($key)) {
                 $results[] = $itemValue;
             } else {
-                $itemKey           = is_object($item) ? $item->{$key} : $item[$key];
+                $itemKey = is_object($item) ? $item->{$key} : $item[$key];
                 $results[$itemKey] = $itemValue;
             }
         }
