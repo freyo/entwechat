@@ -4,6 +4,12 @@ namespace EntWeChat\Message;
 
 /**
  * Class News.
+ *
+ * @property string $title
+ * @property string $description
+ * @property string $url
+ * @property string $image
+ * @property string $btntxt
  */
 class News extends AbstractMessage
 {
@@ -24,13 +30,15 @@ class News extends AbstractMessage
         'description',
         'url',
         'image',
+        'btntxt',
     ];
+
     /**
      * Aliases of attribute.
      *
      * @var array
      */
     protected $aliases = [
-        'image' => 'pic_url',
+        'image' => 'picurl',
     ];
 }

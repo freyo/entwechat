@@ -4,6 +4,14 @@ namespace EntWeChat\Message;
 
 /**
  * Class MpNews.
+ *
+ * @property string $title
+ * @property string $thumb_media_id
+ * @property string $author
+ * @property string $source_url
+ * @property string $content
+ * @property string $digest
+ * @property string $show_cover
  */
 class MpNews extends AbstractMessage
 {
@@ -23,10 +31,10 @@ class MpNews extends AbstractMessage
         'title',
         'thumb_media_id',
         'author',
-        'content_source_url',
+        'source_url',
         'content',
         'digest',
-        'show_cover_pic',
+        'show_cover',
     ];
 
     /**
@@ -38,4 +46,18 @@ class MpNews extends AbstractMessage
         'source_url' => 'content_source_url',
         'show_cover' => 'show_cover_pic',
     ];
+
+    /**
+     * 设置音乐封面.
+     *
+     * @param string $mediaId
+     *
+     * @return $this
+     */
+    public function thumb($mediaId)
+    {
+        $this->setAttribute('thumb_media_id', $mediaId);
+
+        return $this;
+    }
 }

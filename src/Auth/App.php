@@ -9,9 +9,9 @@ use EntWeChat\Core\Exceptions\InvalidStateException;
  */
 class App extends AbstractAuthentication
 {
-    const AUTH_URL = 'https://open.weixin.qq.com/connect/oauth2/authorize';
-
-    const API_GET_USER_INFO = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo';
+    const AUTH_URL            = 'https://open.weixin.qq.com/connect/oauth2/authorize';
+    const API_GET_USER_INFO   = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo';
+    const API_GET_USER_DETAIL = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail';
 
     /**
      * Indicates if the session state should be utilized.
@@ -35,7 +35,7 @@ class App extends AbstractAuthentication
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url.'?'.$query.'#wechat_redirect';
+        return $url . '?' . $query . '#wechat_redirect';
     }
 
     /**
@@ -70,5 +70,19 @@ class App extends AbstractAuthentication
         ];
 
         return $this->parseJSON('get', [self::API_GET_USER_INFO, $params]);
+    }
+
+    /**
+     * @param $user_ticket
+     *
+     * @return \EntWeChat\Support\Collection
+     */
+    public function detail($user_ticket)
+    {
+        $params = [
+            'user_ticket' => $user_ticket,
+        ];
+
+        return $this->parseJSON('post', [self::API_GET_USER_DETAIL, $params]);
     }
 }

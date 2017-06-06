@@ -30,7 +30,7 @@ class Transformer
             $class = get_class($message);
         }
 
-        $handle = 'transform'.substr($class, strlen('EntWeChat\Message\\'));
+        $handle = 'transform' . substr($class, strlen('EntWeChat\Message\\'));
 
         return method_exists($this, $handle) ? $this->$handle($message) : [];
     }
@@ -118,6 +118,21 @@ class Transformer
     }
 
     /**
+     * Transform file message.
+     *
+     * @return array
+     */
+    public function transformFile(AbstractMessage $message)
+    {
+        return [
+            'msgtype' => 'file',
+            'file'    => [
+                'media_id' => $message->get('media_id'),
+            ],
+        ];
+    }
+
+    /**
      * Transform articles message.
      *
      * @return array
@@ -136,6 +151,7 @@ class Transformer
                 'description' => $item->get('description'),
                 'url'         => $item->get('url'),
                 'picurl'      => $item->get('pic_url'),
+                'btntxt'      => $item->get('btntxt'),
             ];
         }
 
@@ -164,7 +180,6 @@ class Transformer
                 'content'            => $item->get('content'),
                 'digest'             => $item->get('digest'),
                 'show_cover_pic'     => $item->get('show_cover_pic'),
-                'safe'               => $item->get('safe'),
             ];
         }
 
@@ -185,6 +200,41 @@ class Transformer
             $type     => [
                 'media_id' => $message->get('media_id'),
             ],
+        ];
+    }
+
+    /**
+     * Transform textcard message.
+     *
+     * @return array
+     */
+    public function transformTextCard(AbstractMessage $message)
+    {
+        return [
+            'msgtype'  => 'textcard',
+            'textcard' => [
+                'title'       => $message->get('title'),
+                'description' => $message->get('description'),
+                'url'         => $message->get('url'),
+                'btntxt'      => $message->get('btntxt'),
+            ],
+        ];
+    }
+
+    /**
+     * Transform card message.
+     *
+     * @param $message
+     *
+     * @return array
+     */
+    public function transformCard($message)
+    {
+        return [
+            'wxcard'  => [
+                'card_id' => $message,
+            ],
+            'msgtype' => 'wxcard',
         ];
     }
 }

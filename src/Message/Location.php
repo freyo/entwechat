@@ -4,6 +4,10 @@ namespace EntWeChat\Message;
 
 /**
  * Class Location.
+ *
+ * @property string $title
+ * @property string $description
+ * @property string $url
  */
 class Location extends AbstractMessage
 {
