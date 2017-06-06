@@ -12,14 +12,14 @@ use EntWeChat\Core\Exceptions\HttpException;
 class AccessToken
 {
     /**
-     * Corp ID.
+     * ID.
      *
      * @var string
      */
-    protected $corpId;
+    protected $id;
 
     /**
-     * Corp secret.
+     * Secret.
      *
      * @var string
      */
@@ -73,13 +73,13 @@ class AccessToken
     /**
      * Constructor.
      *
-     * @param string                       $corpId
+     * @param string                       $id
      * @param string                       $secret
      * @param \Doctrine\Common\Cache\Cache $cache
      */
-    public function __construct($corpId, $secret, Cache $cache = null)
+    public function __construct($id, $secret, Cache $cache = null)
     {
-        $this->corpId = $corpId;
+        $this->id = $id;
         $this->secret = $secret;
         $this->cache = $cache;
     }
@@ -109,7 +109,7 @@ class AccessToken
     }
 
     /**
-     * 设置自定义 token.
+     * Set custom token.
      *
      * @param string $token
      * @param int    $expires
@@ -124,13 +124,33 @@ class AccessToken
     }
 
     /**
+     * Return the id.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Return the app id.
+     *
+     * @return string
+     */
+    public function getAppId()
+    {
+        return $this->getId();
+    }
+
+    /**
      * Return the corp id.
      *
      * @return string
      */
     public function getCorpId()
     {
-        return $this->corpId;
+        return $this->getId();
     }
 
     /**
@@ -150,7 +170,7 @@ class AccessToken
      */
     public function getFingerprint()
     {
-        return sha1($this->corpId.'|'.$this->secret);
+        return sha1($this->id.'|'.$this->secret);
     }
 
     /**
@@ -221,7 +241,7 @@ class AccessToken
     public function getTokenFromServer()
     {
         $params = [
-            'corpid'     => $this->corpId,
+            'corpid'     => $this->id,
             'corpsecret' => $this->secret,
         ];
 
@@ -296,7 +316,7 @@ class AccessToken
     public function getCacheKey()
     {
         if (is_null($this->cacheKey)) {
-            return $this->prefix.$this->corpId;
+            return $this->prefix.$this->id;
         }
 
         return $this->cacheKey;

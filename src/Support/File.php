@@ -1,24 +1,5 @@
 <?php
 
-/*
- * This file is part of the overtrue/wechat.
- *
- * (c) overtrue <i@overtrue.me>
- *
- * This source file is subject to the MIT license that is bundled
- * with this source code in the file LICENSE.
- */
-
-/**
- * File.php.
- *
- * @author    overtrue <i@overtrue.me>
- * @copyright 2015 overtrue <i@overtrue.me>
- *
- * @see       https://github.com/overtrue
- * @see       http://overtrue.me
- */
-
 namespace EntWeChat\Support;
 
 use finfo;
@@ -49,7 +30,7 @@ class File
         'image/jpeg'                   => '.jpg',
 
         // 列举更多的文件 mime, 企业号是支持的, 公众平台这边之后万一也更新了呢
-        'application/msword' => '.doc',
+        'application/msword'           => '.doc',
 
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document' => '.docx',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.template' => '.dotx',

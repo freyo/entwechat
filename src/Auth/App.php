@@ -1,13 +1,13 @@
 <?php
 
-namespace EntWeChat\Service;
+namespace EntWeChat\Auth;
 
 use EntWeChat\Core\Exceptions\InvalidStateException;
 
 /**
- * Class Oauth.
+ * Class App.
  */
-class Oauth extends AbstractService
+class App extends AbstractAuthentication
 {
     const AUTH_URL = 'https://open.weixin.qq.com/connect/oauth2/authorize';
 

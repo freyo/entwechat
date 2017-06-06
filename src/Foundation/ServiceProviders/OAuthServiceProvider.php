@@ -2,8 +2,8 @@
 
 namespace EntWeChat\Foundation\ServiceProviders;
 
-use EntWeChat\Service\Authentication;
-use EntWeChat\Service\Oauth;
+use EntWeChat\Auth\App;
+use EntWeChat\Auth\Web;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -23,11 +23,11 @@ class OAuthServiceProvider implements ServiceProviderInterface
     public function register(Container $pimple)
     {
         $pimple['oauth'] = function ($pimple) {
-            return new Oauth($pimple['access_token']);
+            return new App($pimple['access_token']);
         };
 
         $pimple['auth'] = function ($pimple) {
-            return new Authentication($pimple['access_token']);
+            return new Web($pimple['access_token']);
         };
     }
 }

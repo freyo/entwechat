@@ -13,14 +13,14 @@ use Exception as BaseException;
 class Encryptor
 {
     /**
-     * Corp id.
+     * ID.
      *
      * @var string
      */
-    protected $corpId;
+    protected $id;
 
     /**
-     * App token.
+     * Token.
      *
      * @var string
      */
@@ -43,19 +43,19 @@ class Encryptor
     /**
      * Constructor.
      *
-     * @param string $corpId
+     * @param string $id
      * @param string $token
      * @param string $AESKey
      *
      * @throws RuntimeException
      */
-    public function __construct($corpId, $token, $AESKey)
+    public function __construct($id, $token, $AESKey)
     {
         if (!extension_loaded('openssl')) {
             throw new RuntimeException("The ext 'openssl' is required.");
         }
 
-        $this->corpId = $corpId;
+        $this->id = $id;
         $this->token = $token;
         $this->AESKey = $AESKey;
         $this->blockSize = 32;
@@ -72,9 +72,9 @@ class Encryptor
      */
     public function encryptMsg($xml, $nonce = null, $timestamp = null)
     {
-        $encrypt = $this->encrypt($xml, $this->corpId);
+        $encrypt = $this->encrypt($xml, $this->id);
 
-        !is_null($nonce) || $nonce = substr($this->corpId, 0, 10);
+        !is_null($nonce) || $nonce = substr($this->id, 0, 10);
         !is_null($timestamp) || $timestamp = time();
 
         //生成安全签名
@@ -119,7 +119,7 @@ class Encryptor
             throw new EncryptionException('Invalid Signature.', EncryptionException::ERROR_INVALID_SIGNATURE);
         }
 
-        return XML::parse($this->decrypt($encrypted, $this->corpId));
+        return XML::parse($this->decrypt($encrypted, $this->id));
     }
 
     /**

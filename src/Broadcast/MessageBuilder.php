@@ -85,7 +85,7 @@ class MessageBuilder
      *
      * @param string|array $message
      *
-     * @return MessageBuilder
+     * @return $this
      */
     public function message($message)
     {
@@ -103,7 +103,7 @@ class MessageBuilder
      *
      * @param $agentId
      *
-     * @return MessageBuilder
+     * @return $this
      */
     public function by($agentId)
     {
@@ -117,7 +117,7 @@ class MessageBuilder
      *
      * @param array $to
      *
-     * @return MessageBuilder
+     * @return $this
      */
     public function to(array $to)
     {
@@ -129,7 +129,7 @@ class MessageBuilder
     /**
      * Message target all.
      *
-     * @return mixed
+     * @return $this
      */
     public function toAll()
     {
@@ -141,21 +141,15 @@ class MessageBuilder
     /**
      * Message target user.
      *
-     * @param int|array $userIds
-     *
-     * @return mixed
+     * @return $this
      */
-    public function toUser($userIds)
+    public function toUser()
     {
-        if (1 < func_num_args()) {
-            $userIds = func_get_args();
+        if (func_num_args() > 0) {
+            $userIds = is_array(func_get_arg(0)) ? func_get_arg(0) : func_get_args();
+
+            $this->to['touser'] = implode('|', $userIds);
         }
-
-        $userIds = Arr::where((array) $userIds, function ($key, $value) {
-            return is_string($value) || is_numeric($value);
-        });
-
-        $this->to['touser'] = implode('|', $userIds);
 
         return $this;
     }
@@ -163,21 +157,15 @@ class MessageBuilder
     /**
      * Message target party.
      *
-     * @param int|array $partyIds
-     *
-     * @return mixed
+     * @return $this
      */
-    public function toParty($partyIds)
+    public function toParty()
     {
-        if (1 < func_num_args()) {
-            $partyIds = func_get_args();
+        if (func_num_args() > 0) {
+            $partyIds = is_array(func_get_arg(0)) ? func_get_arg(0) : func_get_args();
+
+            $this->to['toparty'] = implode('|', $partyIds);
         }
-
-        $partyIds = Arr::where((array) $partyIds, function ($key, $value) {
-            return is_numeric($value);
-        });
-
-        $this->to['toparty'] = implode('|', $partyIds);
 
         return $this;
     }
@@ -185,21 +173,15 @@ class MessageBuilder
     /**
      * Message target tag.
      *
-     * @param int|array $tagIds
-     *
-     * @return mixed
+     * @return $this
      */
-    public function toTag($tagIds)
+    public function toTag()
     {
-        if (1 < func_num_args()) {
-            $tagIds = func_get_args();
+        if (func_num_args() > 0) {
+            $tagIds = is_array(func_get_arg(0)) ? func_get_arg(0) : func_get_args();
+
+            $this->to['totag'] = implode('|', $tagIds);
         }
-
-        $tagIds = Arr::where((array) $tagIds, function ($key, $value) {
-            return is_numeric($value);
-        });
-
-        $this->to['totag'] = implode('|', $tagIds);
 
         return $this;
     }
@@ -207,7 +189,7 @@ class MessageBuilder
     /**
      * Use safe message.
      *
-     * @return mixed
+     * @return $this
      */
     public function safe()
     {

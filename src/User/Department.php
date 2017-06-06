@@ -41,9 +41,13 @@ class Department extends AbstractAPI
      *
      * @return array
      */
-    public function lists()
+    public function lists($partyId = null)
     {
-        return $this->parseJSON('get', [self::API_GET]);
+        $params = [
+            'id' => $partyId,
+        ];
+
+        return $this->parseJSON('get', [self::API_GET, $params]);
     }
 
     /**

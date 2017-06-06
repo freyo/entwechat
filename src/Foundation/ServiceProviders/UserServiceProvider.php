@@ -35,8 +35,16 @@ class UserServiceProvider implements ServiceProviderInterface
             return new Tag($pimple['access_token']);
         };
 
+        $pimple['department'] = $department;
+        $pimple['party'] = $department;
+
+        $pimple['user_party'] = $department;
+        $pimple['user.party'] = $department;
+
         $pimple['user_department'] = $department;
         $pimple['user.department'] = $department;
+
+        $pimple['tag'] = $tag;
 
         $pimple['user_tag'] = $tag;
         $pimple['user.tag'] = $tag;
