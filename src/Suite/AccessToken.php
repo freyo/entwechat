@@ -62,7 +62,7 @@ class AccessToken extends CoreAccessToken
         $token = $http->parseJSON($http->json(self::API_TOKEN_GET, $data));
 
         if (empty($token[$this->tokenJsonKey])) {
-            throw new HttpException('Request SuiteAccessToken fail. response: ' . json_encode($token, JSON_UNESCAPED_UNICODE));
+            throw new HttpException('Request SuiteAccessToken fail. response: '.json_encode($token, JSON_UNESCAPED_UNICODE));
         }
 
         return $token;

@@ -2,8 +2,8 @@
 
 namespace EntWeChat\Foundation\ServiceProviders;
 
-use EntWeChat\Auth\Web;
 use EntWeChat\Auth\App;
+use EntWeChat\Auth\Web;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 

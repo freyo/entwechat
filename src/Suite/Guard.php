@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Guard extends ServerGuard
 {
-    const EVENT_CREATE_AUTH  = 'create_auth';
-    const EVENT_CANCEL_AUTH  = 'cancel_auth';
-    const EVENT_CHANGE_AUTH  = 'change_auth';
+    const EVENT_CREATE_AUTH = 'create_auth';
+    const EVENT_CANCEL_AUTH = 'cancel_auth';
+    const EVENT_CHANGE_AUTH = 'change_auth';
     const EVENT_SUITE_TICKET = 'suite_ticket';
 
     /**

@@ -42,7 +42,7 @@ class Ticket
     public function __construct($suiteId, Cache $cache)
     {
         $this->suiteId = $suiteId;
-        $this->cache   = $cache;
+        $this->cache = $cache;
     }
 
     /**
@@ -65,7 +65,7 @@ class Ticket
     public function getCacheKey()
     {
         if (is_null($this->cacheKey)) {
-            return $this->prefix . $this->suiteId;
+            return $this->prefix.$this->suiteId;
         }
 
         return $this->cacheKey;
@@ -88,9 +88,9 @@ class Ticket
     /**
      * Get component verify ticket.
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exceptions\RuntimeException
+     *
+     * @return string
      */
     public function getTicket()
     {

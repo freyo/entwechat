@@ -8,7 +8,7 @@ use EntWeChat\Suite\Api\BaseApi;
 
 class Authorization
 {
-    const CACHE_KEY_ACCESS_TOKEN  = 'EntWeChat.suite.authorizer_access_token';
+    const CACHE_KEY_ACCESS_TOKEN = 'EntWeChat.suite.authorizer_access_token';
     const CACHE_KEY_PERMANENT_CODE = 'EntWeChat.suite.authorizer_permanent_code';
 
     /**
@@ -48,7 +48,7 @@ class Authorization
      */
     public function __construct(BaseApi $api, $suiteId, Cache $cache)
     {
-        $this->api   = $api;
+        $this->api = $api;
         $this->suiteId = $suiteId;
         $this->cache = $cache;
     }
@@ -82,15 +82,15 @@ class Authorization
      */
     public function getAuthorizerAccessTokenKey()
     {
-        return self::CACHE_KEY_ACCESS_TOKEN . $this->suiteId . $this->getAuthorizerCorpId();
+        return self::CACHE_KEY_ACCESS_TOKEN.$this->suiteId.$this->getAuthorizerCorpId();
     }
 
     /**
      * Gets the authorizer corp id, or throws if not found.
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exception
+     *
+     * @return string
      */
     public function getAuthorizerCorpId()
     {
@@ -146,15 +146,15 @@ class Authorization
      */
     public function getAuthorizerPermanentCodeKey()
     {
-        return self::CACHE_KEY_PERMANENT_CODE . $this->suiteId . $this->getAuthorizerCorpId();
+        return self::CACHE_KEY_PERMANENT_CODE.$this->suiteId.$this->getAuthorizerCorpId();
     }
 
     /**
      * Gets the authorizer refresh token.
      *
-     * @return string
-     *
      * @throws \EntWeChat\Core\Exception when refresh token is not present
+     *
+     * @return string
      */
     public function getAuthorizerPermanentCode()
     {

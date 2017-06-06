@@ -64,9 +64,9 @@ class SuiteServiceProvider implements ServiceProviderInterface
             $server->debug($pimple['config']['debug']);
             $server->setEncryptor($pimple['suite.encryptor']);
             $server->setHandlers([
-                Guard::EVENT_CREATE_AUTH => $pimple['suite.handlers.create_auth'],
-                Guard::EVENT_CANCEL_AUTH => $pimple['suite.handlers.cancel_auth'],
-                Guard::EVENT_CHANGE_AUTH => $pimple['suite.handlers.change_auth'],
+                Guard::EVENT_CREATE_AUTH  => $pimple['suite.handlers.create_auth'],
+                Guard::EVENT_CANCEL_AUTH  => $pimple['suite.handlers.cancel_auth'],
+                Guard::EVENT_CHANGE_AUTH  => $pimple['suite.handlers.change_auth'],
                 Guard::EVENT_SUITE_TICKET => $pimple['suite.handlers.suite_ticket'],
             ]);
 
