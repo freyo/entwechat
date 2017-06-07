@@ -9,8 +9,8 @@ use EntWeChat\Core\Exceptions\InvalidStateException;
  */
 class WorkWeb extends AbstractAuthentication
 {
-    const AUTH_URL            = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect';
-    const API_GET_USER_INFO   = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo';
+    const AUTH_URL = 'https://open.work.weixin.qq.com/wwopen/sso/qrConnect';
+    const API_GET_USER_INFO = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo';
 
     /**
      * Indicates if the session state should be utilized.
@@ -26,7 +26,7 @@ class WorkWeb extends AbstractAuthentication
     {
         return $this->buildAuthUrlFromBase(self::AUTH_URL, $state);
     }
-	
+
     /**
      * {@inheritdoc}.
      */
@@ -34,7 +34,7 @@ class WorkWeb extends AbstractAuthentication
     {
         $query = http_build_query($this->getCodeFields($state), '', '&', $this->encodingType);
 
-        return $url . '?' . $query;
+        return $url.'?'.$query;
     }
 
     /**
@@ -48,7 +48,7 @@ class WorkWeb extends AbstractAuthentication
             'state'         => $state ?: md5(time()),
         ], $this->parameters);
     }
-	
+
     /**
      * @param null $code
      *

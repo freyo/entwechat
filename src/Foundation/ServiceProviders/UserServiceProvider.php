@@ -2,10 +2,10 @@
 
 namespace EntWeChat\Foundation\ServiceProviders;
 
+use EntWeChat\User\Batch;
 use EntWeChat\User\Department;
 use EntWeChat\User\Tag;
 use EntWeChat\User\User;
-use EntWeChat\User\Batch;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -35,8 +35,8 @@ class UserServiceProvider implements ServiceProviderInterface
         $tag = function ($pimple) {
             return new Tag($pimple['access_token']);
         };
-		
-		$batch = function ($pimple) {
+
+        $batch = function ($pimple) {
             return new Batch($pimple['access_token']);
         };
 
@@ -53,8 +53,8 @@ class UserServiceProvider implements ServiceProviderInterface
 
         $pimple['user_tag'] = $tag;
         $pimple['user.tag'] = $tag;
-		
-		$pimple['user_batch'] = $batch;
+
+        $pimple['user_batch'] = $batch;
         $pimple['user.batch'] = $batch;
     }
 }
