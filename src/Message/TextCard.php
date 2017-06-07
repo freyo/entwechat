@@ -3,20 +3,21 @@
 namespace EntWeChat\Message;
 
 /**
- * Class Link.
+ * Class TextCard.
  *
  * @property string $title
  * @property string $description
  * @property string $url
+ * @property string $btntxt
  */
-class Link extends AbstractMessage
+class TextCard extends AbstractMessage
 {
     /**
      * Message type.
      *
      * @var string
      */
-    protected $type = 'link';
+    protected $type = 'textcard';
 
     /**
      * Properties.
@@ -27,5 +28,6 @@ class Link extends AbstractMessage
         'title',
         'description',
         'url',
+        'btntxt',
     ];
 }

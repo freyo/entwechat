@@ -5,7 +5,11 @@ namespace EntWeChat\Message;
 /**
  * Class DeviceEvent.
  *
- * @property string $media_id
+ * @property string $device_type
+ * @property string $device_id
+ * @property string $content
+ * @property string $session_id
+ * @property string $open_id
  */
 class DeviceEvent extends AbstractMessage
 {

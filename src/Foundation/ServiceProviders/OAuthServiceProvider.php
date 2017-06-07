@@ -4,6 +4,7 @@ namespace EntWeChat\Foundation\ServiceProviders;
 
 use EntWeChat\Auth\App;
 use EntWeChat\Auth\Web;
+use EntWeChat\Auth\WorkWeb;
 use Pimple\Container;
 use Pimple\ServiceProviderInterface;
 
@@ -29,5 +30,12 @@ class OAuthServiceProvider implements ServiceProviderInterface
         $pimple['auth'] = function ($pimple) {
             return new Web($pimple['access_token']);
         };
+
+        $auth_work = function ($pimple) {
+            return new WorkWeb($pimple['access_token']);
+        };
+
+        $pimple['auth_work'] = $auth_work;
+        $pimple['auth.work'] = $auth_work;
     }
 }

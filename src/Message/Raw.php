@@ -4,6 +4,8 @@ namespace EntWeChat\Message;
 
 /**
  * Class Raw.
+ *
+ * @property string $content
  */
 class Raw extends AbstractMessage
 {

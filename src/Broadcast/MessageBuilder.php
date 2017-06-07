@@ -68,6 +68,7 @@ class MessageBuilder
         Broadcast::MSG_TYPE_CARD,
         Broadcast::MSG_TYPE_FILE,
         Broadcast::MSG_TYPE_MPNEWS,
+        Broadcast::MSG_TYPE_TEXTCARD,
     ];
 
     /**

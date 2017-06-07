@@ -19,6 +19,7 @@ class Broadcast extends AbstractAPI
     const MSG_TYPE_CARD = 'card';   // 卡券
     const MSG_TYPE_FILE = 'file';   // 文件
     const MSG_TYPE_MPNEWS = 'mpnews'; // 图文
+    const MSG_TYPE_TEXTCARD = 'textcard'; // 文本卡片
 
     /**
      * Get message builder.

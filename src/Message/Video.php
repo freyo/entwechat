@@ -5,7 +5,6 @@ namespace EntWeChat\Message;
 /**
  * Class Video.
  *
- * @property string $video
  * @property string $title
  * @property string $media_id
  * @property string $description
