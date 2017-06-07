@@ -30,12 +30,12 @@ class OAuthServiceProvider implements ServiceProviderInterface
         $pimple['auth'] = function ($pimple) {
             return new Web($pimple['access_token']);
         };
-		
-		$auth_work = function ($pimple) {
+
+        $auth_work = function ($pimple) {
             return new WorkWeb($pimple['access_token']);
         };
-		
-		$pimple['auth_work'] = $auth_work;
-		$pimple['auth.work'] = $auth_work;
+
+        $pimple['auth_work'] = $auth_work;
+        $pimple['auth.work'] = $auth_work;
     }
 }

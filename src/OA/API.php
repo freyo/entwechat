@@ -6,7 +6,7 @@ use EntWeChat\Core\AbstractAPI;
 
 class API extends AbstractAPI
 {
-    const API_CHECKIN_DATA  = 'https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata';
+    const API_CHECKIN_DATA = 'https://qyapi.weixin.qq.com/cgi-bin/checkin/getcheckindata';
     const API_APPROVAL_DATA = 'https://qyapi.weixin.qq.com/cgi-bin/corp/getapprovaldata';
 
     /**
@@ -25,7 +25,7 @@ class API extends AbstractAPI
             'opencheckindatatype' => $openCheckinDataType,
             'starttime'           => $startTime,
             'endtime'             => $endTime,
-            'useridlist'          => (array)$userIdList,
+            'useridlist'          => (array) $userIdList,
         ];
 
         return $this->parseJSON('json', [self::API_CHECKIN_DATA, $params]);

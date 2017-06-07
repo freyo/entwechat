@@ -6,10 +6,10 @@ use EntWeChat\Core\AbstractAPI;
 
 class Batch extends AbstractAPI
 {
-    const API_SYNC_USER     = 'https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser';
-    const API_REPLACE_USER  = 'https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser';
+    const API_SYNC_USER = 'https://qyapi.weixin.qq.com/cgi-bin/batch/syncuser';
+    const API_REPLACE_USER = 'https://qyapi.weixin.qq.com/cgi-bin/batch/replaceuser';
     const API_REPLACE_PARTY = 'https://qyapi.weixin.qq.com/cgi-bin/batch/replaceparty';
-    const API_GET_RESULT    = 'https://qyapi.weixin.qq.com/cgi-bin/batch/getresult';
+    const API_GET_RESULT = 'https://qyapi.weixin.qq.com/cgi-bin/batch/getresult';
 
     /**
      * Batch sync user.
@@ -23,7 +23,7 @@ class Batch extends AbstractAPI
     {
         $params = [
             'media_id' => $mediaId,
-            'callback' => $callback
+            'callback' => $callback,
         ];
 
         return $this->parseJSON('json', [self::API_SYNC_USER, $params]);
@@ -41,7 +41,7 @@ class Batch extends AbstractAPI
     {
         $params = [
             'media_id' => $mediaId,
-            'callback' => $callback
+            'callback' => $callback,
         ];
 
         return $this->parseJSON('json', [self::API_REPLACE_USER, $params]);
@@ -59,7 +59,7 @@ class Batch extends AbstractAPI
     {
         $params = [
             'media_id' => $mediaId,
-            'callback' => $callback
+            'callback' => $callback,
         ];
 
         return $this->parseJSON('json', [self::API_REPLACE_PARTY, $params]);
