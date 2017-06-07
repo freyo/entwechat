@@ -23,6 +23,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @property \EntWeChat\User\User                       $user
  * @property \EntWeChat\User\Tag                        $user_tag
  * @property \EntWeChat\User\Department                 $user_department
+ * @property \EntWeChat\User\Batch                      $user_batch 
  * @property \EntWeChat\Js\Js                           $js
  * @property \EntWeChat\Js\Contact                      $js_contact
  * @property \EntWeChat\Menu\Menu                       $menu
@@ -43,6 +44,9 @@ use Symfony\Component\HttpFoundation\Request;
  * @property \EntWeChat\Auth\Web                        $auth
  * @property \EntWeChat\Staff\Staff                     $staff
  * @property \EntWeChat\Suite\Suite                     $suite
+ * @property \EntWeChat\OA\API                          $oa 
+ * 
+ * @method \EntWeChat\Support\Collection getCallbackIp()
  */
 class Application extends Container
 {
@@ -67,6 +71,8 @@ class Application extends Container
         ServiceProviders\ShakeAroundServiceProvider::class,
         ServiceProviders\StaffServiceProvider::class,
         ServiceProviders\SuiteServiceProvider::class,
+		ServiceProviders\FundamentalServiceProvider::class,
+		ServiceProviders\OAServiceProvider::class,
     ];
 
     /**
