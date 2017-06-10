@@ -79,9 +79,9 @@ class App extends AbstractAuthentication
      */
     public function detail($user_ticket)
     {
-        $params = [
+        $params = json_encode([
             'user_ticket' => $user_ticket,
-        ];
+        ]);
 
         return $this->parseJSON('post', [self::API_GET_USER_DETAIL, $params]);
     }
