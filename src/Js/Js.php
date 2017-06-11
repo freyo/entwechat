@@ -114,7 +114,7 @@ class Js extends AbstractAPI
         $ticket = $this->ticket();
 
         $sign = [
-            'appId'     => $this->getAccessToken()->getFingerprint(),
+            'appId'     => $this->getAccessToken()->getCorpId(),
             'nonceStr'  => $nonce,
             'timestamp' => $timestamp,
             'url'       => $url,
