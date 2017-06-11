@@ -136,7 +136,6 @@ class Js extends AbstractAPI
      */
     public function getSignature($ticket, $nonce, $timestamp, $url)
     {
-        //sha1("group_ticket={$ticket}&noncestr={$nonce}&timestamp={$timestamp}&url={$url}")
         return sha1("jsapi_ticket={$ticket}&noncestr={$nonce}&timestamp={$timestamp}&url={$url}");
     }
 
