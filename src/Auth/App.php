@@ -77,12 +77,12 @@ class App extends AbstractAuthentication
      *
      * @return \EntWeChat\Support\Collection
      */
-    public function detail($user_ticket)
+    public function detail($userTicket)
     {
-        $params = json_encode([
-            'user_ticket' => $user_ticket,
-        ]);
+        $params = [
+            'user_ticket' => $userTicket,
+        ];
 
-        return $this->parseJSON('post', [self::API_GET_USER_DETAIL, $params]);
+        return $this->parseJSON('json', [self::API_GET_USER_DETAIL, $params]);
     }
 }
