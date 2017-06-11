@@ -53,7 +53,7 @@ class App extends AbstractAuthentication
     }
 
     /**
-     * @param null $code
+     * @param string|null $code
      *
      * @throws InvalidStateException
      *
@@ -73,7 +73,7 @@ class App extends AbstractAuthentication
     }
 
     /**
-     * @param $user_ticket
+     * @param string $userTicket
      *
      * @return \EntWeChat\Support\Collection
      */
