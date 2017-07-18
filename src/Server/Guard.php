@@ -48,6 +48,11 @@ class Guard
     protected $token;
 
     /**
+     * @var string
+     */
+    protected $corpId;
+
+    /**
      * @var Encryptor
      */
     protected $encryptor;
@@ -87,11 +92,13 @@ class Guard
      * Constructor.
      *
      * @param string  $token
+     * @param string  $corpId
      * @param Request $request
      */
-    public function __construct($token, Request $request = null)
+    public function __construct($token, $corpId, Request $request = null)
     {
         $this->token = $token;
+        $this->corpId = $corpId;
         $this->request = $request ?: Request::createFromGlobals();
     }
 
@@ -129,6 +136,7 @@ class Guard
         $this->validate($this->token);
 
         if ($str = $this->request->get('echostr')) {
+            $str = $this->encryptor->decrypt($str, $this->corpId);
             Log::debug("Output 'echostr' is '$str'.");
 
             return new Response($str);
@@ -153,12 +161,13 @@ class Guard
     public function validate($token)
     {
         $params = [
+            $this->request->get('echostr'),
             $token,
             $this->request->get('timestamp'),
             $this->request->get('nonce'),
         ];
 
-        if (!$this->debug && $this->request->get('signature') !== $this->signature($params)) {
+        if (!$this->debug && $this->request->get('msg_signature') !== $this->signature($params)) {
             throw new FaultException('Invalid request signature.', 400);
         }
     }
@@ -275,14 +284,12 @@ class Guard
 
         $response = $this->buildReply($to, $from, $message);
 
-        if ($this->isSafeMode()) {
-            Log::debug('Message safe mode is enable.');
-            $response = $this->encryptor->encryptMsg(
-                $response,
-                $this->request->get('nonce'),
-                $this->request->get('timestamp')
-            );
-        }
+        Log::debug('Message safe mode is enable.');
+        $response = $this->encryptor->encryptMsg(
+            $response,
+            $this->request->get('nonce'),
+            $this->request->get('timestamp')
+        );
 
         return $response;
     }
@@ -435,31 +442,17 @@ class Guard
             return $arrayable;
         }
 
-        if ($this->isSafeMode()) {
-            if (!$this->encryptor) {
-                throw new RuntimeException('Safe mode Encryptor is necessary, please use Guard::setEncryptor(Encryptor $encryptor) set the encryptor instance.');
-            }
-
-            $message = $this->encryptor->decryptMsg(
-                $this->request->get('msg_signature'),
-                $this->request->get('nonce'),
-                $this->request->get('timestamp'),
-                $content
-            );
-        } else {
-            $message = XML::parse($content);
+        if (!$this->encryptor) {
+            throw new RuntimeException('Safe mode Encryptor is necessary, please use Guard::setEncryptor(Encryptor $encryptor) set the encryptor instance.');
         }
 
-        return $message;
-    }
+        $message = $this->encryptor->decryptMsg(
+            $this->request->get('msg_signature'),
+            $this->request->get('nonce'),
+            $this->request->get('timestamp'),
+            $content
+        );
 
-    /**
-     * Check the request message safe mode.
-     *
-     * @return bool
-     */
-    private function isSafeMode()
-    {
-        return $this->request->get('encrypt_type') && $this->request->get('encrypt_type') === 'aes';
+        return $message;
     }
 }

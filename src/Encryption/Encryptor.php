@@ -240,7 +240,7 @@ class Encryptor
      *
      * @return string
      */
-    private function decrypt($encrypted, $corpId)
+    public function decrypt($encrypted, $corpId)
     {
         try {
             $key = $this->getAESKey();
