@@ -76,6 +76,13 @@ class Application extends Container
     ];
 
     /**
+     * Account Instances.
+     *
+     * @var array
+     */
+    protected $accounts = [];
+
+    /**
      * Application constructor.
      *
      * @param array $config
@@ -112,13 +119,17 @@ class Application extends Container
      */
     public function account($account)
     {
-        if (!isset($this['config']['account'][$account])) {
-            throw new InvalidConfigException('This account not exist');
+        if (isset($this->accounts[$account])) {
+            return $this->accounts[$account];
         }
 
-        $this['config']->merge($this['config']['account'][$account]);
+        if (!isset($this['config']['account'][$account])) {
+            throw new InvalidConfigException('This account not exist.');
+        }
 
-        return $this;
+        return $this->accounts[$account] = new self(
+            array_merge($this['config']->all(), $this['config']['account'][$account])
+        );
     }
 
     /**
